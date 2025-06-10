@@ -234,6 +234,7 @@
         "nm-applet --indicator &"
         "waybar & hyprpaper &"
         "systemctl --user start hyprpolkitagent"
+        "clipse -listen"
       ];
 
       # Environment variables
@@ -359,7 +360,6 @@
         "$mainMod, Q, killactive,"
         "$mainMod SHIFT, Q, exit,"
         "$mainMod, -, exec, $fileManager"
-        "$mainMod, V, togglefloating,"
         "$mainMod, P, pseudo,"
         "$mainMod, J, togglesplit,"
 
@@ -368,6 +368,8 @@
         "$mainMod, B, exec, $browser"
         "$mainMod, D, exec, $menu"
         "$mainMod, E, exec, $fileManager"
+        "$mainMod, V, exec, $terminal --class=clipse -e clipse"
+        "$mainMod SHIFT, L, exec, hyprlock"
 
         # Move focus (vim-like)
         "$mainMod, H, movefocus, l"
@@ -440,6 +442,9 @@
 
       # Window rules
       windowrule = [
+        "float, class:(clipse)"
+        "size 622 652, class:(clipse)"
+        "stayfocused, class:(clipse)"
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
