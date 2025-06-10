@@ -104,12 +104,18 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
       fish_hybrid_key_bindings
     '';
     shellAbbrs = {
+      cd = "z";
     };
     functions = {
       cdg = {
