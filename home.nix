@@ -261,7 +261,7 @@
         rounding_power = 2;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
-        
+
         shadow = {
           enabled = true;
           range = 4;
@@ -280,7 +280,7 @@
       # Animations
       animations = {
         enabled = true;
-        
+
         bezier = [
           "easeOutQuint,0.23,1,0.32,1"
           "easeInOutCubic,0.65,0.05,0.36,1"
