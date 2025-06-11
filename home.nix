@@ -15,6 +15,9 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -58,6 +61,9 @@
     ## Build tool
     bazelisk
     gnumake
+    # Application
+    obsidian
+    anki-bin
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
