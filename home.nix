@@ -464,6 +464,9 @@
     enable = true;
     userName = "Duc Tran";
     userEmail = "duc.tran2027@gmail.com";
+    extraConfig = {
+        push.autoSetupRemote = true;
+    };
   };
 
   programs.fzf = {
