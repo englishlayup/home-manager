@@ -17,12 +17,15 @@ in
       "$terminal" = "ghostty";
       "$fileManager" = "dolphin";
       "$menu" = "wofi --show drun";
-      "$browser" = "librewolf";
+      "$browser" = "brave";
+      "$note-app" = "obsidian";
       "$lockCmd" = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
 
       # Autostart
       exec-once = [
         "$terminal"
+        "$browser"
+        "$note-app"
         "nm-applet --indicator &"
         "blueman-applet &"
         "waybar & hyprpaper &"
@@ -236,6 +239,9 @@ in
 
       # Window rules
       windowrule = [
+        "workspace 2, class:^($browser).*"
+        "workspace 3, class:^($note-app).*"
+
         "float, class:(clipse)"
         "size 622 652, class:(clipse)"
         "stayfocused, class:(clipse)"
