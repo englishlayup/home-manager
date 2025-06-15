@@ -236,16 +236,10 @@
         "float, class:(clipse)"
         "size 622 652, class:(clipse)"
         "stayfocused, class:(clipse)"
-        "float, class:(nm-connection-editor)"
 
-        "size 500 600, class:(nm-connection-editor)"
-        "size 800 600, class:(pavucontrol)"
-        "size 800 600, class:(pwvucontrol)"
-        "float, class:(waybar)"
-        "pin, class:(waybar)"
-
-        "float, class:(pavucontrol)"
-        "float, class:(pwvucontrol)"
+        "float, class:.*pavucontrol.*"
+        "float, class:.*(NetworkManager|nm-applet|nm-connection-editor).*"
+        "float, class:.*blueman.*"
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
