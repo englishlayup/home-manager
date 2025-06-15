@@ -41,8 +41,8 @@ in
 
       # General settings
       general = {
-        gaps_in = 8;
-        gaps_out = 12;
+        gaps_in = 2;
+        gaps_out = 5;
         border_size = 2;
         "col.active_border" = "rgba(${theme.scheme.base0D}ee) rgba(${theme.scheme.base0B}ee) 45deg";
         "col.inactive_border" = "rgba(${theme.scheme.base03}aa)";
