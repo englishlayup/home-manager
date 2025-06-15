@@ -246,9 +246,9 @@ in
         "size 622 652, class:(clipse)"
         "stayfocused, class:(clipse)"
 
-        "float, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol).*"
+        "float, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
         "size 500 600, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman).*"
-        "size 800 600, class:.*(pavucontrol|pwvucontrol).*"
+        "size 800 600, class:.*(pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
