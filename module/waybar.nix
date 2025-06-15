@@ -1,5 +1,7 @@
 { ... }:
-{
+let
+  theme = import ../theme/gruvbox-dark.nix
+in {
   # Waybar configuration
   programs.waybar = {
     enable = true;
@@ -12,20 +14,19 @@
 
         modules-left = [
           "hyprland/workspaces"
+          "hyprland/window"
+        ];
+        modules-center = [
+          "clock"
+        ];
+        modules-right = [
           "idle_inhibitor"
           "pulseaudio"
           "backlight"
-        ];
-        modules-center = [ "hyprland/window" ];
-        modules-right = [
           "hyprland/submap"
           "hyprland/language"
-          "cpu"
-          "memory"
-          "temperature"
           "battery"
           "tray"
-          "clock"
         ];
 
         "hyprland/workspaces" = {
@@ -38,17 +39,22 @@
             "3" = "";
             "4" = "";
             "5" = "";
-            "6" = "6";
-            "7" = "7";
-            "8" = "8";
-            "9" = "9";
-            "10" = "10";
+            "5" = "五";
+            "6" = "六";
+            "7" = "七";
+            "8" = "八";
+            "9" = "九";
+            "10" = "十";
+          };
+          persistent-workspaces = {
+            "*" = 4;
           };
         };
 
         "hyprland/window" = {
           format = "{title}";
-          max-length = 50;
+          max-length = 40;
+          separate-outputs = true;
         };
 
         "hyprland/language" = {
@@ -72,8 +78,22 @@
         memory.format = "{}% ";
 
         clock = {
-          tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format-alt = "{:%Y-%m-%d}";
+          format = "{:%H:%M}";
+          format-alt = "{:%A, %B %d, %Y (%R)}";
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          calendar = {
+            mode = "year";
+            mode-mon-col = 3;
+            weeks-pos = "right";
+            on-scroll = 1;
+            format = {
+              months = "<span color='#${colors.accent}'><b>{}</b></span>";
+              days = "<span color='#${colors.fg2}'><b>{}</b></span>";
+              weeks = "<span color='#${colors.aqua}'><b>W{}</b></span>";
+              weekdays = "<span color='#${colors.orange}'><b>{}</b></span>";
+              today = "<span color='#${colors.red}'><b><u>{}</u></b></span>";
+            };
+          };
         };
 
         temperature = {
@@ -144,110 +164,133 @@
       };
     };
 
-    style = ''
-      @define-color base00 #181818;
-      @define-color base01 #2b2e37;
-      @define-color base02 #3b3e47;
-      @define-color base03 #585858;
-      @define-color base04 #b8b8b8;
-      @define-color base05 #d8d8d8;
-      @define-color base06 #e8e8e8;
-      @define-color base07 #f8f8f8;
-      @define-color base08 #ab4642;
-      @define-color base09 #dc9656;
-      @define-color base0A #f7ca88;
-      @define-color base0B #a1b56c;
-      @define-color base0C #86c1b9;
-      @define-color base0D #7cafc2;
-      @define-color base0E #ba8baf;
-      @define-color base0F #a16946;
-
+   style = ''
       * {
-        transition: none;
-        box-shadow: none;
+        font-family: 'JetBrains Mono Nerd Font', 'Font Awesome 6 Free';
+        font-size: 13px;
+        font-weight: 600;
+        border: none;
+        border-radius: 0;
+        min-height: 0;
       }
 
-      #waybar {
-        font-family: 'Source Code Pro', sans-serif;
-        font-size: 1.2em;
-        font-weight: 400;
-        color: @base04;
-        background: @base01;
+      window#waybar {
+        background: #${colors.base01};
+        color: #${colors.fg};
       }
 
       #workspaces {
-        margin: 0 4px;
+        background: #${colors.surface};
+        margin: 5px 5px 5px 10px;
+        padding: 0px 5px;
+        border-radius: 16px;
+        border: solid 0px #${colors.accent};
+        font-weight: bold;
+        font-style: normal;
       }
 
       #workspaces button {
-        margin: 4px 0;
-        padding: 0 4px;
-        color: @base05;
-      }
-
-      #workspaces button.visible {
+        padding: 0px 5px;
+        margin: 4px 3px;
+        border-radius: 16px;
+        border: solid 0px #${colors.accent};
+        color: #${colors.fg3};
+        background: transparent;
+        transition: all 0.3s ease-in-out;
       }
 
       #workspaces button.active {
-        border-radius: 4px;
-        background-color: @base02;
+        color: #${colors.bg};
+        background: #${colors.accent};
+        border-radius: 16px;
+        min-width: 40px;
       }
 
-      #workspaces button.urgent {
-        color: rgba(238, 46, 36, 1);
+      #workspaces button:hover {
+        color: #${colors.accent};
+        background: #${colors.bg2};
+        border-radius: 16px;
       }
 
-      #tray {
-        margin: 4px 4px 4px 4px;
-        border-radius: 4px;
-        background-color: @base02;
-      }
-
-      #tray * {
-        padding: 0 6px;
-        border-left: 1px solid @base00;
-      }
-
-      #tray *:first-child {
-        border-left: none;
-      }
-
-      #mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-updates, #custom-weather, #custom-mail, #clock, #temperature, #language{
-        margin: 4px 2px;
-        padding: 0 6px;
-        background-color: @base02;
-        border-radius: 4px;
-        min-width: 20px;
-      }
-
-      #pulseaudio.muted {
-        color: @base0F;
-      }
-
-      #pulseaudio.bluetooth {
-        color: @base0C;
-      }
-
-      #clock {
-        margin-left: 0px;
-        margin-right: 4px;
-        background-color: transparent;
-      }
-
-      #temperature.critical {
-        color: @base0F;
+      #custom-launcher {
+        color: #${colors.blue};
+        background: #${colors.surface};
+        border-radius: 16px;
+        margin: 5px;
+        margin-left: 10px;
+        padding: 2px 17px;
+        font-size: 15px;
       }
 
       #window {
-        font-size: 0.9em;
-        font-weight: 400;
-        font-family: sans-serif;
+        color: #${colors.fg2};
+        background: #${colors.surface};
+        border-radius: 16px;
+        margin: 5px;
+        padding: 2px 15px;
       }
 
-      #language {
-        font-size: 0.9em;
-        font-weight: 500;
-        letter-spacing: -1px;
+      #clock {
+        color: #${colors.fg};
+        background: #${colors.surface};
+        border-radius: 16px;
+        margin: 5px;
+        padding: 2px 15px;
+      }
+
+      #pulseaudio,
+      #backlight,
+      #network,
+      #battery {
+        color: #${colors.fg};
+        background: #${colors.surface};
+        border-radius: 16px;
+        margin: 5px 2px;
+        padding: 2px 12px;
+      }
+
+      #pulseaudio {
+        color: #${colors.blue};
+      }
+
+      #backlight {
+        color: #${colors.yellow};
+      }
+
+      #network {
+        color: #${colors.green};
+      }
+
+      #battery {
+        color: #${colors.aqua};
+      }
+
+      #battery.charging {
+        color: #${colors.green};
+      }
+
+      #battery.warning:not(.charging) {
+        color: #${colors.orange};
+      }
+
+      #battery.critical:not(.charging) {
+        color: #${colors.red};
+      }
+
+      #tray {
+        background: #${colors.surface};
+        border-radius: 16px;
+        margin: 5px;
+        padding: 2px 5px;
+      }
+
+      #custom-power {
+        color: #${colors.red};
+        background: #${colors.surface};
+        border-radius: 16px;
+        margin: 5px;
+        margin-right: 10px;
+        padding: 2px 12px;
       }
     '';
   };
