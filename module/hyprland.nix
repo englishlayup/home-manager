@@ -21,6 +21,7 @@
       exec-once = [
         "$terminal"
         "nm-applet --indicator &"
+        "blueman-applet &"
         "waybar & hyprpaper &"
         "systemctl --user start hyprpolkitagent"
         "clipse -listen"
@@ -152,7 +153,6 @@
         "$mainMod, Q, killactive,"
         "$mainMod SHIFT, Q, exit,"
         "$mainMod, P, pseudo,"
-        "$mainMod, J, togglesplit,"
         "$mainMod SHIFT, RETURN, exec, $lockCmd"
 
         # Application launchers
@@ -236,6 +236,16 @@
         "float, class:(clipse)"
         "size 622 652, class:(clipse)"
         "stayfocused, class:(clipse)"
+        "float, class:(nm-connection-editor)"
+
+        "size 500 600, class:(nm-connection-editor)"
+        "size 800 600, class:(pavucontrol)"
+        "size 800 600, class:(pwvucontrol)"
+        "float, class:(waybar)"
+        "pin, class:(waybar)"
+
+        "float, class:(pavucontrol)"
+        "float, class:(pwvucontrol)"
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
       ];
