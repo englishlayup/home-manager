@@ -44,8 +44,8 @@ in
         gaps_in = 8;
         gaps_out = 12;
         border_size = 2;
-        "col.active_border" = "${theme.scheme.base0D} ${theme.scheme.base0B} 45deg";
-        "col.inactive_border" = "${theme.scheme.base03}";
+        "col.active_border" = "rgba(${theme.scheme.base0D}ee) rgba(${theme.scheme.base0B}ee) 45deg";
+        "col.inactive_border" = "rgba(${theme.scheme.base03}aa)";
         resize_on_border = false;
         allow_tearing = false;
         layout = "dwindle";
