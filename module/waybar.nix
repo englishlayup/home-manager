@@ -1,7 +1,8 @@
 { ... }:
 let
-  theme = import ../theme/gruvbox-dark.nix
-in {
+  theme = import ../theme/gruvbox-dark.nix;
+in
+{
   # Waybar configuration
   programs.waybar = {
     enable = true;
@@ -9,7 +10,7 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 20;
+        height = 37;
         spacing = 4;
 
         modules-left = [
@@ -20,8 +21,8 @@ in {
           "clock"
         ];
         modules-right = [
-          "idle_inhibitor"
-          "pulseaudio"
+          "pulseaudio#volume"
+          "pulseaudio#mic"
           "backlight"
           "hyprland/submap"
           "hyprland/language"
@@ -34,12 +35,11 @@ in {
           all-outputs = true;
           format = "{icon}";
           format-icons = {
-            "1" = "";
-            "2" = "";
-            "3" = "";
-            "4" = "";
-            "5" = "";
-            "5" = "五";
+            "1" = " ";
+            "2" = " ";
+            "3" = " ";
+            "4" = " ";
+            "5" = " ";
             "6" = "六";
             "7" = "七";
             "8" = "八";
@@ -47,7 +47,7 @@ in {
             "10" = "十";
           };
           persistent-workspaces = {
-            "*" = 4;
+            "*" = 5;
           };
         };
 
@@ -65,8 +65,8 @@ in {
         idle_inhibitor = {
           format = "{icon}";
           format-icons = {
-            activated = "";
-            deactivated = "";
+            activated = " ";
+            deactivated = " ";
           };
         };
 
@@ -87,11 +87,11 @@ in {
             weeks-pos = "right";
             on-scroll = 1;
             format = {
-              months = "<span color='#${colors.accent}'><b>{}</b></span>";
-              days = "<span color='#${colors.fg2}'><b>{}</b></span>";
-              weeks = "<span color='#${colors.aqua}'><b>W{}</b></span>";
-              weekdays = "<span color='#${colors.orange}'><b>{}</b></span>";
-              today = "<span color='#${colors.red}'><b><u>{}</u></b></span>";
+              months = "<span color='#${theme.scheme.base0D}'><b>{}</b></span>";
+              days = "<span color='#${theme.scheme.base04}'><b>{}</b></span>";
+              weeks = "<span color='#${theme.scheme.base0C}'><b>W{}</b></span>";
+              weekdays = "<span color='#${theme.scheme.base09}'><b>{}</b></span>";
+              today = "<span color='#${theme.scheme.base08}'><b><u>{}</u></b></span>";
             };
           };
         };
@@ -109,15 +109,15 @@ in {
         backlight = {
           format = "{percent}% {icon}";
           format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
-            ""
+            " "
+            " "
+            " "
+            " "
+            " "
+            " "
+            " "
+            " "
+            " "
           ];
         };
 
@@ -128,44 +128,41 @@ in {
           };
           format = "{capacity}% {icon}";
           format-charging = "{capacity}% 🗲";
-          format-plugged = "{capacity}% ";
+          format-plugged = "{capacity}%  ";
           format-alt = "{time} {icon}";
           format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
+            " "
+            " "
+            " "
+            " "
+            " "
           ];
         };
 
-        pulseaudio = {
-          format = "{volume}%{icon} {format_source}";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-source = "{volume}% ";
-          format-source-muted = "";
-          format-icons = {
-            headphone = "";
-            hands-free = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
-            default = [
-              ""
-              ""
-              ""
-            ];
-          };
+        "pulseaudio#volume" = {
+          format = "{volume}% {icon}";
+          format-bluetooth = "{volume}% {icon}";
+          format-bluetooth-muted = " {icon}";
+          format-muted = " ";
+          format-icons = [
+            ""
+            " "
+            " "
+          ];
           on-click = "pavucontrol";
+        };
+
+        "pulseaudio#mic" = {
+          format = "{format_source}";
+          format-source = "{volume}% ";
+          format-source-muted = " ";
+          on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
         };
       };
     };
 
-   style = ''
-      * {
+    style = ''
+         * {
         font-family: 'JetBrains Mono Nerd Font', 'Font Awesome 6 Free';
         font-size: 13px;
         font-weight: 600;
@@ -175,16 +172,16 @@ in {
       }
 
       window#waybar {
-        background: #${colors.base01};
-        color: #${colors.fg};
+        background: #${theme.scheme.base01};
+        color: #${theme.scheme.base05};
       }
 
       #workspaces {
-        background: #${colors.surface};
+        background: #${theme.scheme.base02};
         margin: 5px 5px 5px 10px;
         padding: 0px 5px;
         border-radius: 16px;
-        border: solid 0px #${colors.accent};
+        border: solid 0px #${theme.scheme.base0D};
         font-weight: bold;
         font-style: normal;
       }
@@ -193,28 +190,28 @@ in {
         padding: 0px 5px;
         margin: 4px 3px;
         border-radius: 16px;
-        border: solid 0px #${colors.accent};
-        color: #${colors.fg3};
+        border: solid 0px #${theme.scheme.base0D};
+        color: #${theme.scheme.base04};
         background: transparent;
         transition: all 0.3s ease-in-out;
       }
 
       #workspaces button.active {
-        color: #${colors.bg};
-        background: #${colors.accent};
+        color: #${theme.scheme.base00};
+        background: #${theme.scheme.base0D};
         border-radius: 16px;
         min-width: 40px;
       }
 
       #workspaces button:hover {
-        color: #${colors.accent};
-        background: #${colors.bg2};
+        color: #${theme.scheme.base0D};
+        background: #${theme.scheme.base02};
         border-radius: 16px;
       }
 
       #custom-launcher {
-        color: #${colors.blue};
-        background: #${colors.surface};
+        color: #${theme.scheme.base0D};
+        background: #${theme.scheme.base02};
         border-radius: 16px;
         margin: 5px;
         margin-left: 10px;
@@ -223,70 +220,71 @@ in {
       }
 
       #window {
-        color: #${colors.fg2};
-        background: #${colors.surface};
+        color: #${theme.scheme.base04};
+        background: #${theme.scheme.base02};
         border-radius: 16px;
         margin: 5px;
         padding: 2px 15px;
       }
 
       #clock {
-        color: #${colors.fg};
-        background: #${colors.surface};
+        color: #${theme.scheme.base05};
+        background: #${theme.scheme.base02};
         border-radius: 16px;
         margin: 5px;
         padding: 2px 15px;
       }
 
+      #language,
       #pulseaudio,
       #backlight,
       #network,
       #battery {
-        color: #${colors.fg};
-        background: #${colors.surface};
+        color: #${theme.scheme.base05};
+        background: #${theme.scheme.base02};
         border-radius: 16px;
         margin: 5px 2px;
         padding: 2px 12px;
       }
 
       #pulseaudio {
-        color: #${colors.blue};
+        color: #${theme.scheme.base0D};
       }
 
       #backlight {
-        color: #${colors.yellow};
+        color: #${theme.scheme.base0A};
       }
 
       #network {
-        color: #${colors.green};
+        color: #${theme.scheme.base0B};
       }
 
       #battery {
-        color: #${colors.aqua};
+        color: #${theme.scheme.base0C};
       }
 
       #battery.charging {
-        color: #${colors.green};
+        color: #${theme.scheme.base0B};
       }
 
       #battery.warning:not(.charging) {
-        color: #${colors.orange};
+        color: #${theme.scheme.base09};
       }
 
       #battery.critical:not(.charging) {
-        color: #${colors.red};
+        color: #${theme.scheme.base08};
       }
 
       #tray {
-        background: #${colors.surface};
+        background: #${theme.scheme.base02};
         border-radius: 16px;
         margin: 5px;
         padding: 2px 5px;
       }
 
       #custom-power {
-        color: #${colors.red};
-        background: #${colors.surface};
+        color: #${theme.scheme.base08};
+        background: #${theme.scheme.base02};
         border-radius: 16px;
         margin: 5px;
         margin-right: 10px;
