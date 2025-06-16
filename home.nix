@@ -53,7 +53,7 @@
     jq
     xxd
     # Dev tools
-    ## Langauge server, debuger, formatter
+    ## Language server, debuger, formatter
     lua-language-server
     clang-tools
     gopls
@@ -74,7 +74,83 @@
     # Application
     obsidian
     anki-bin
+    # Theme
+    nwg-look # GTK theme configurator
+    gruvbox-gtk-theme # Gruvbox GTK theme package
+    gruvbox-dark-icons-gtk # Gruvbox icon theme (optional)
+    libsForQt5.qt5ct # Qt5 configuration tool
+    qt6ct # Qt6 configuration tool
   ];
+
+  # Configure GTK settings through Home Manager
+  gtk = {
+    enable = true;
+
+    theme = {
+      name = "Gruvbox-Dark";
+      package = pkgs.gruvbox-gtk-theme;
+    };
+
+    iconTheme = {
+      name = "Gruvbox-Plus-Dark";
+      package = pkgs.gruvbox-dark-icons-gtk;
+    };
+
+    cursorTheme = {
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+      size = 16;
+    };
+
+    font = {
+      name = "Inter";
+      size = 11;
+    };
+
+    gtk2.extraConfig = ''
+      gtk-application-prefer-dark-theme=1
+    '';
+
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+      gtk-button-images = 1;
+      gtk-menu-images = 1;
+    };
+
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
+  # Additional dconf settings for consistent theming
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      gtk-theme = "Gruvbox-Dark";
+      icon-theme = "Gruvbox-Plus-Dark";
+      color-scheme = "prefer-dark";
+    };
+  };
+
+  # XDG settings for theme consistency
+  xdg.configFile."gtk-4.0/settings.ini".text = ''
+    [Settings]
+    gtk-application-prefer-dark-theme=1
+    gtk-theme-name=Gruvbox-Dark
+    gtk-icon-theme-name=Gruvbox-Plus-Dark
+  '';
+
+  # Qt configuration
+  qt = {
+    enable = true;
+    platformTheme = "qtct"; # Use qt5ct/qt6ct for theming
+    style.name = "adwaita-dark"; # Fallback Qt style
+  };
+
+  # Environment variables for Qt theming
+  home.sessionVariables = {
+    QT_QPA_PLATFORMTHEME = "qt5ct";
+    QT_STYLE_OVERRIDE = "adwaita-dark";
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
