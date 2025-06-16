@@ -80,6 +80,7 @@
     gruvbox-dark-icons-gtk # Gruvbox icon theme (optional)
     libsForQt5.qt5ct # Qt5 configuration tool
     qt6ct # Qt6 configuration tool
+    bibata-cursors
   ];
 
   # Configure GTK settings through Home Manager
