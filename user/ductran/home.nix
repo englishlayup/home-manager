@@ -1,14 +1,14 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./module/dunst.nix
-    ./module/fish.nix
-    ./module/hypridle.nix
-    ./module/hyprland.nix
-    ./module/hyprlock.nix
-    ./module/hyprpaper.nix
-    ./module/waybar.nix
-    ./module/wofi.nix
+    ../../module/dunst.nix
+    ../../module/fish.nix
+    ../../module/hypridle.nix
+    ../../module/hyprland.nix
+    ../../module/hyprlock.nix
+    ../../module/hyprpaper.nix
+    ../../module/waybar.nix
+    ../../module/wofi.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -51,6 +51,7 @@
     fzf
     jq
     xxd
+    neovim
     # Dev tools
     ## Language server, debuger, formatter
     lua-language-server
@@ -193,8 +194,6 @@
     "$HOME/.local/scripts"
   ];
 
-  services.syncthing.enable = true;
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -222,7 +221,7 @@
     configFile = {
       # Neovim configuration
       "nvim" = {
-        source = ./nvim;
+        source = ../../nvim;
         recursive = true;
       };
     };
