@@ -1,14 +1,14 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./module/dunst.nix
-    ./module/fish.nix
-    ./module/hypridle.nix
-    ./module/hyprland.nix
-    ./module/hyprlock.nix
-    ./module/hyprpaper.nix
-    ./module/waybar.nix
-    ./module/wofi.nix
+    ../../module/dunst.nix
+    ../../module/fish.nix
+    ../../module/hypridle.nix
+    ../../module/hyprland.nix
+    ../../module/hyprlock.nix
+    ../../module/hyprpaper.nix
+    ../../module/waybar.nix
+    ../../module/wofi.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -222,7 +222,7 @@
     configFile = {
       # Neovim configuration
       "nvim" = {
-        source = ./nvim;
+        source = ../../nvim;
         recursive = true;
       };
     };
