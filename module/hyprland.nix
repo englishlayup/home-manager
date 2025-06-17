@@ -10,7 +10,7 @@ in
       # Monitors
       monitor = [
         "eDP-1,highres@highrr,auto,auto"
-        "Virtual-1,highres@highrr,auto,auto"
+        "Virtual-1,highres@highrr,auto,1"
         ",preferred,auto,1"
       ];
 

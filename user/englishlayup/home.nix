@@ -142,7 +142,7 @@
   # Qt configuration
   qt = {
     enable = true;
-    platformTheme = "qtct"; # Use qt5ct/qt6ct for theming
+    platformTheme.name = "qtct"; # Use qt5ct/qt6ct for theming
     style.name = "adwaita-dark"; # Fallback Qt style
   };
 
