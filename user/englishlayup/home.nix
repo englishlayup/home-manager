@@ -73,6 +73,7 @@
     # Application
     obsidian
     anki-bin
+    libreoffice-qt6-fresh
     # Theme
     nwg-look # GTK theme configurator
     gruvbox-gtk-theme # Gruvbox GTK theme package
