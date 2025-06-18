@@ -161,6 +161,7 @@ in
         "$mainMod SHIFT, Q, exit,"
         "$mainMod, P, pseudo,"
         "$mainMod SHIFT, RETURN, exec, $lockCmd"
+        "$mainMod, F, fullscreen"
 
         # Application launchers
         "$mainMod, RETURN, exec, $terminal"
