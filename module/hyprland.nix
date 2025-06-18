@@ -247,7 +247,7 @@ in
         "float, class:(clipse)"
         "size 622 652, class:(clipse)"
         "stayfocused, class:(clipse)"
-
+        "float, title:(Picture in picture)"
         "float, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
         "size 500 600, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman).*"
         "size 800 600, class:.*(pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
