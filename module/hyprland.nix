@@ -29,12 +29,12 @@ in
         "$note-app"
         "nm-applet --indicator &"
         "blueman-applet &"
-        "waybar & hyprpaper &"
+        "waybar &"
         "systemctl --user start hyprpolkitagent"
         "clipse -listen"
-        "hypridle"
         "wl-paste --type text --watch clipse -store-text"
         "wl-paste --type image --watch clipse -store-image"
+        "~/.local/scripts/set-random-wallpaper.sh"
       ];
 
       # Environment variables
