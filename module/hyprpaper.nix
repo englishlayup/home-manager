@@ -4,16 +4,11 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      ipc = "on";
-      splash = false;
-      splash_offset = 2.0;
-
       preload = [
-        "~/.config/wallpaper.jpg" # Add your wallpaper here
+        "~/Sync/Wallpapers_clean/"
       ];
-
       wallpaper = [
-        ",~/.config/wallpaper.jpg"
+        ",~/Sync/Wallpapers_clean/"
       ];
     };
   };
