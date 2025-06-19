@@ -1,4 +1,7 @@
 { ... }:
+let
+  theme = import ../theme/gruvbox-dark.nix;
+in
 {
   # Hyprlock configuration (lockscreen with fingerprint)
   programs.hyprlock = {
@@ -38,12 +41,11 @@
           size = "20%, 5%";
           outline_thickness = 3;
           inner_color = "rgba(0, 0, 0, 0.0)"; # no fill
-          outer_color = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          check_color = "rgba(00ff99ee) rgba(ff6633ee) 120deg";
-          fail_color = "rgba(ff6633ee) rgba(ff0066ee) 40deg";
-          font_color = "rgb(143, 143, 143)";
+          outer_color = "rgba(${theme.scheme.base0D}ee) rgba(${theme.scheme.base0B}ee) 45deg"; # blue to green gradient
+          check_color = "rgba(${theme.scheme.base0B}ee) rgba(${theme.scheme.base14}ee) 120deg"; # green gradient for success
+          fail_color = "rgba(${theme.scheme.base08}ee) rgba(${theme.scheme.base12}ee) 40deg"; # red gradient for failure
+          font_color = "rgb(${theme.scheme.base04})"; # secondary text color
           fade_on_empty = false;
-          rounding = 15;
           font_family = "Monospace";
           placeholder_text = "Input password...";
           fail_text = "$PAMFAIL";
