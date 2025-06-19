@@ -8,6 +8,7 @@
     '';
     shellAbbrs = {
       cd = "z";
+      tf = "trans -brief fr:";
     };
     functions = {
       cdg = {
