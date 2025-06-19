@@ -5,10 +5,10 @@
     enable = true;
     settings = {
       preload = [
-        "~/Sync/Wallpapers_clean/"
+        "~/Sync/Wallpapers_clean/1.jpg"
       ];
       wallpaper = [
-        ",~/Sync/Wallpapers_clean/"
+        ",~/Sync/Wallpapers_clean/1.jpg"
       ];
     };
   };
