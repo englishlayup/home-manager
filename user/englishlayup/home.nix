@@ -214,6 +214,30 @@
     executable = true;
   };
 
+  systemd.user.services.set-random-wallpaper = {
+    Unit = {
+      Description = "Set a random wallpaper";
+    };
+    Service = {
+      ExecStart = "${config.home.homeDirectory}/.local/scripts/set-random-wallpaper.sh";
+      Type = "oneshot";
+    };
+  };
+
+  systemd.user.timers.set-random-wallpaper = {
+    Unit = {
+      Description = "Change wallpaper every 10 minutes";
+    };
+    Timer = {
+      OnBootSec = "1min";
+      OnUnitActiveSec = "10min";
+      Persistent = true;
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
   services.syncthing.enable = true;
 
   # Let Home Manager install and manage itself.
