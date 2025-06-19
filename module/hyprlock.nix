@@ -31,7 +31,7 @@ in
         {
           monitor = "";
           path = "screenshot";
-          blur_passes = 3;
+          blur_passes = 2;
         }
       ];
 
