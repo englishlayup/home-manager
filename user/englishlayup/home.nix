@@ -52,6 +52,7 @@
     fzf
     jq
     xxd
+    translate-shell
     # Dev tools
     ## Language server, debuger, formatter
     lua-language-server
