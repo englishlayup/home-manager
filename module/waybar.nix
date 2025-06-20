@@ -163,7 +163,7 @@ in
 
     style = ''
          * {
-        font-family: 'JetBrains Mono Nerd Font', 'Font Awesome 6 Free';
+        font-family: 'JetBrains Mono Nerd Font';
         font-size: 13px;
         font-weight: 600;
         border: none;

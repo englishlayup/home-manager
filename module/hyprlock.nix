@@ -30,7 +30,6 @@ in
       background = [
         {
           monitor = "";
-          path = "screenshot";
           blur_passes = 2;
         }
       ];
@@ -46,7 +45,7 @@ in
           fail_color = "rgba(${theme.scheme.base08}ee) rgba(${theme.scheme.base12}ee) 40deg"; # red gradient for failure
           font_color = "rgb(${theme.scheme.base04})"; # secondary text color
           fade_on_empty = false;
-          font_family = "Monospace";
+          font_family = "JetBrains Mono Nerd Font";
           placeholder_text = "Input password...";
           fail_text = "$PAMFAIL";
           # uncomment to use a letter instead of a dot to indicate the typed password
@@ -67,7 +66,7 @@ in
           monitor = "";
           text = "$TIME"; # ref. https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock/#variable-substitution
           font_size = 90;
-          font_family = "Monospace";
+          font_family = "JetBrains Mono Nerd Font";
           position = "-30, 0";
           halign = "right";
           valign = "top";
@@ -77,7 +76,7 @@ in
           monitor = "";
           text = "cmd[update:60000] date +\"%A, %d %B %Y\""; # update every 60 seconds
           font_size = 25;
-          font_family = "Monospace";
+          font_family = "JetBrains Mono Nerd Font";
           position = "-30, -150";
           halign = "right";
           valign = "top";
