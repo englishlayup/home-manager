@@ -24,9 +24,6 @@ in
 
       # Autostart
       exec-once = [
-        "$terminal"
-        "$browser"
-        "$note-app"
         "nm-applet --indicator &"
         "blueman-applet &"
         "waybar &"
@@ -35,6 +32,9 @@ in
         "wl-paste --type text --watch clipse -store-text"
         "wl-paste --type image --watch clipse -store-image"
         "~/.local/scripts/set-random-wallpaper.sh"
+        "$browser"
+        "$note-app"
+        "$terminal"
       ];
 
       # Environment variables
