@@ -259,8 +259,7 @@ in
         "pin, title:Picture in picture"
         "noinitialfocus, title:Picture in picture"
         "noborder, title:Picture in picture"
-        "size 400 225, title:Picture in picture"
-        "move 100%-w-20 100%-w-20, title:Picture in picture"
+        "move 100%-w-5 100%-w-5, title:Picture in picture"
       ];
     };
   };
