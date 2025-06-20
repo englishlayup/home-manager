@@ -30,6 +30,7 @@ in
       background = [
         {
           monitor = "";
+          path = "screenshot";
           blur_passes = 2;
         }
       ];
