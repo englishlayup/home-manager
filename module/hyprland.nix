@@ -257,10 +257,10 @@ in
         # Picture in picture
         "float, title:Picture in picture"
         "pin, title:Picture in picture"
-        "nofocus, title:Picture in picture"
+        "noinitialfocus, title:Picture in picture"
         "noborder, title:Picture in picture"
         "size 400 225, title:Picture in picture"
-        "move 75% 75%, class:Picture in picture"
+        "move 75% 75%, title:Picture in picture"
       ];
     };
   };
