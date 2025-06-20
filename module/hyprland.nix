@@ -259,6 +259,7 @@ in
         "pin, title:Picture in picture"
         "nofocus, title:Picture in picture"
         "noborder, title:Picture in picture"
+        "size 400 225, title:Picture in picture"
         "move 75% 75%, class:Picture in picture"
       ];
     };
