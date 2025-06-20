@@ -244,6 +244,8 @@ in
       windowrule = [
         "workspace 2, class:^($browser).*"
         "workspace 3, class:^($note-app).*"
+        "workspace 4, class:YouTube"
+        "workspace 4, class:YouTube Music"
 
         "float, class:com.clipse"
         "size 622 652, class:com.clipse"
