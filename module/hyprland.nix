@@ -261,8 +261,8 @@ in
         "noborder, title:Picture in picture"
         "opacity 1.0 0.6, title:Picture in picture"
         "keepaspectratio, title:Picture in picture"
-        "move 100%-w-0 100%-w-0, title:Picture in picture"
-        "size 640, title:Picture in picture"
+        "move 100%-w 100%-w, title:Picture in picture"
+        "size 640 360, title:Picture in picture"
       ];
     };
   };
