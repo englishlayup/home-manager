@@ -46,10 +46,10 @@ in
       # General settings
       general = {
         gaps_in = 2;
-        gaps_out = 2;
+        gaps_out = 5;
         border_size = 3;
-        "col.active_border" = "rgba(${theme.scheme.base0D}ee) rgba(${theme.scheme.base0B}ee) 45deg";
-        "col.inactive_border" = "rgba(${theme.scheme.base03}aa)";
+        "col.active_border" = "rgba(${theme.scheme.base16}ee) rgba(${theme.scheme.base14}ee) 45deg";
+        "col.inactive_border" = "rgba(${theme.scheme.base04}aa)";
         resize_on_border = false;
         allow_tearing = false;
         layout = "dwindle";
