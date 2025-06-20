@@ -260,7 +260,7 @@ in
         "noinitialfocus, title:Picture in picture"
         "noborder, title:Picture in picture"
         "opacity 1.0 0.6, title:Picture in picture"
-        "move 100%-w-5 100%-w-5, title:Picture in picture"
+        "move 100%-w-0 100%-w-0, title:Picture in picture"
       ];
     };
   };
