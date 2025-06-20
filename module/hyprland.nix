@@ -255,11 +255,11 @@ in
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 
         # Picture in picture
-        "float, title:Picture-in-Picture"
-        "pin, title:Picture-in-Picture"
-        "nofocus, title:Picture-in-Picture"
-        "noborder, title:Picture-in-Picture"
-        "move 75% 75%, class:Picture-in-Picture"
+        "float, title:Picture in picture"
+        "pin, title:Picture in picture"
+        "nofocus, title:Picture in picture"
+        "noborder, title:Picture in picture"
+        "move 75% 75%, class:Picture in picture"
       ];
     };
   };
