@@ -34,15 +34,19 @@
     # Terminal
     ghostty
     # CLI Utils
+    yazi
+    hyperfine
+    delta
+    eza
     dust
     dua
     git
     btop
+    bat
     zoxide
     tldr
     wget
     curl
-    tree
     unzip
     zip
     htop
@@ -255,6 +259,21 @@
     extraConfig = {
       push.autoSetupRemote = true;
     };
+  };
+
+  programs.btop = {
+    enable = true;
+    settings = {
+      color_theme = "gruvbox_dark_v2";
+      theme_background = false;
+      vim_keys = true;
+    };
+  };
+
+  programs.bat = {
+    enable = true;
+    # settings = {
+    # };
   };
 
   programs.fzf = {

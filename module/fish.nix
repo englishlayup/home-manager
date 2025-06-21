@@ -7,7 +7,19 @@
       set -g theme_color_scheme gruvbox-dark
     '';
     shellAbbrs = {
+      ls = "eza --icons --group-directories-first";
+      ll = "eza -l --icons --group-directories-first";
+      la = "eza -la --icons --group-directories-first";
+      tree = "eza --tree --icons";
+      cat = "bat";
       cd = "z";
+
+      gs = "git status";
+      ga = "git add";
+      gc = "git commit";
+      gp = "git push";
+      gl = "git log --oneline --graph";
+
       tf = "trans -brief fr:";
     };
     functions = {
