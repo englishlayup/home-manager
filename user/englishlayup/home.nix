@@ -199,6 +199,7 @@
 
   home.sessionPath = [
     "$HOME/.local/scripts"
+    "$HOME/go/bin"
   ];
 
   # Randomize wallpaper
