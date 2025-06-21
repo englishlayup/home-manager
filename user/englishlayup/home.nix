@@ -272,8 +272,11 @@
 
   programs.bat = {
     enable = true;
-    # settings = {
-    # };
+    config = {
+      theme = "auto";
+      "theme-dark" = "gruvbox-dark";
+      "theme-light" = "gruvbox-light";
+    };
   };
 
   programs.fzf = {
