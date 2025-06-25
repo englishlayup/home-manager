@@ -17,6 +17,7 @@ in
       # Programs
       "$terminal" = "ghostty";
       "$fileManager" = "yazi";
+      "$clipboard" = "clipse";
       "$menu" = "wofi --show drun";
       "$browser" = "brave";
       "$note-app" = "obsidian";
@@ -169,7 +170,7 @@ in
         "$mainMod, B, exec, $browser"
         "$mainMod, D, exec, $menu"
         "$mainMod, E, exec, $terminal --class=com.$fileManager -e $fileManager"
-        "$mainMod, V, exec, $terminal --class=com.clipse -e clipse"
+        "$mainMod, V, exec, $terminal --class=com.$clipboard -e $clipboard"
 
         # Move focus (vim-like)
         "$mainMod, H, movefocus, l"
@@ -248,9 +249,9 @@ in
         "workspace 4, initialTitle:YouTube Music"
         "workspace 4, initialTitle:Nebula"
 
-        "float, class:com.clipse"
-        "size 622 652, class:com.clipse"
-        "stayfocused, class:com.clipse"
+        "float, class:com.$clipboard"
+        "size 622 652, class:com.$clipboard"
+        "stayfocused, class:com.$clipboard"
         "float, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
         "size 500 600, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman).*"
         "size 800 600, class:.*(pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
