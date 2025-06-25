@@ -16,7 +16,8 @@ in
 
       # Programs
       "$terminal" = "ghostty";
-      "$fileManager" = "dolphin";
+      "$fileManagerCmd" = "$terminal --class=com.yazi -e yazi";
+      "$clipboardCmd" = "$terminal --class=com.clipse -e clipse";
       "$menu" = "wofi --show drun";
       "$browser" = "brave";
       "$note-app" = "obsidian";
@@ -168,8 +169,8 @@ in
         "$mainMod, RETURN, exec, $terminal"
         "$mainMod, B, exec, $browser"
         "$mainMod, D, exec, $menu"
-        "$mainMod, E, exec, $fileManager"
-        "$mainMod, V, exec, $terminal --class=com.clipse -e clipse"
+        "$mainMod, E, exec, $fileManagerCmd"
+        "$mainMod, V, exec, $clipboardCmd"
 
         # Move focus (vim-like)
         "$mainMod, H, movefocus, l"
@@ -246,6 +247,7 @@ in
         "workspace 3, class:^($note-app).*"
         "workspace 4, initialTitle:YouTube"
         "workspace 4, initialTitle:YouTube Music"
+        "workspace 4, initialTitle:Nebula"
 
         "float, class:com.clipse"
         "size 622 652, class:com.clipse"
