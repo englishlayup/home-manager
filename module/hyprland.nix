@@ -16,8 +16,7 @@ in
 
       # Programs
       "$terminal" = "ghostty";
-      "$fileManagerCmd" = "$terminal --class=com.yazi -e yazi";
-      "$clipboardCmd" = "$terminal --class=com.clipse -e clipse";
+      "$fileManager" = "yazi";
       "$menu" = "wofi --show drun";
       "$browser" = "brave";
       "$note-app" = "obsidian";
@@ -169,8 +168,8 @@ in
         "$mainMod, RETURN, exec, $terminal"
         "$mainMod, B, exec, $browser"
         "$mainMod, D, exec, $menu"
-        "$mainMod, E, exec, $fileManagerCmd"
-        "$mainMod, V, exec, $clipboardCmd"
+        "$mainMod, E, exec, $terminal --class=com.$fileManager -e $fileManager"
+        "$mainMod, V, exec, $terminal --class=com.clipse -e clipse"
 
         # Move focus (vim-like)
         "$mainMod, H, movefocus, l"
