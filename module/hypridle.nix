@@ -30,7 +30,7 @@
           on-resume = "hyprctl dispatch dpms on && brightnessctl -r"; # screen on when activity is detected after timeout has fired.
         }
         {
-          timeout = 300; # 30min
+          timeout = 600; # 10 min
           on-timeout = "systemctl suspend"; # suspend pc
         }
       ];
