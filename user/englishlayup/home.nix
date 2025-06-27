@@ -201,6 +201,7 @@
   home.sessionPath = [
     "$HOME/.local/scripts"
     "$HOME/go/bin"
+    "$HOME/.local/bin"
   ];
 
   home.file.".local/bin/bazel".source = "${pkgs.bazelisk}/bin/bazelisk";
