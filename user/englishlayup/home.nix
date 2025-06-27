@@ -203,7 +203,7 @@
     "$HOME/go/bin"
   ];
 
-  home.file."bin/bazel".source = "${pkgs.bazelisk}/bin/bazelisk";
+  home.file.".local/bin/bazel".source = "${pkgs.bazelisk}/bin/bazelisk";
 
   # Randomize wallpaper
   home.file.".local/scripts/set-random-wallpaper.sh" = {
