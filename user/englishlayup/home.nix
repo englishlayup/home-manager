@@ -81,6 +81,7 @@
     anki-bin
     libreoffice-qt6-fresh
     mpv-unwrapped
+    musescore
     # Theme
     nwg-look # GTK theme configurator
     gruvbox-gtk-theme # Gruvbox GTK theme package
