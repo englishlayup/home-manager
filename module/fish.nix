@@ -118,5 +118,5 @@
       };
     };
   };
-  xdg.configFile."fish/completions/bazel.fish".source = ./fish/completions/bazel.fish;
+  xdg.configFile."fish/completions/bazel.fish".source = ../fish/completions/bazel.fish;
 }
