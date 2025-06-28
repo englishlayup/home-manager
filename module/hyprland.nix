@@ -27,7 +27,6 @@ in
       exec-once = [
         "nm-applet --indicator &"
         "blueman-applet &"
-        "waybar &"
         "systemctl --user start hyprpolkitagent"
         "clipse -listen"
         "wl-paste --type text --watch clipse -store-text"
