@@ -85,7 +85,7 @@
           set -l nix_shell_info (
             if test -n "$IN_NIX_SHELL"
               set_color cyan
-              echo -n " 󱄅 "
+              echo -n "󱄅 "
             end
           )
           set -l color_cwd
