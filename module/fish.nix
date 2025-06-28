@@ -23,9 +23,6 @@
 
       tf = "trans -brief fr:";
     };
-    shellAliases = {
-      bazel = "bazelisk";
-    };
     functions = {
       cdg = {
         description = "cd relative to git root";
