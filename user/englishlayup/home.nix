@@ -161,92 +161,69 @@
     style.name = "adwaita-dark"; # Fallback Qt style
   };
 
-  # Environment variables for Qt theming
-  home.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_STYLE_OVERRIDE = "adwaita-dark";
-  };
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/englishlayup/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    # hint Electron apps to use Wayland:
-    NIXOS_OZONE_WL = "1";
-  };
-
-  home.sessionPath = [
-    "$HOME/.local/scripts"
-    "$HOME/go/bin"
-  ];
-
-  # Randomize wallpaper
-  home.file.".local/scripts/set-random-wallpaper.sh" = {
-    text = ''
-      #!/usr/bin/env bash
-
-      WALLPAPER_DIR="$HOME/Sync/Wallpapers_clean/"
-      CURRENT_WALL=$(hyprctl hyprpaper listloaded)
-      # Get the name of the focused monitor with hyprctl
-      FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
-      # Get a random wallpaper that is not the current one
-      WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
-
-      # Apply the selected wallpaper
-      hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"'';
-    executable = true;
-  };
-
-  systemd.user.services.set-random-wallpaper = {
-    Unit = {
-      Description = "Set a random wallpaper";
+  home = {
+    # Environment variables for Qt theming
+    sessionVariables = {
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      QT_STYLE_OVERRIDE = "adwaita-dark";
     };
-    Service = {
-      ExecStart = "${config.home.homeDirectory}/.local/scripts/set-random-wallpaper.sh";
-      Type = "oneshot";
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      # hint Electron apps to use Wayland:
+      NIXOS_OZONE_WL = "1";
+    };
+
+    sessionPath = [
+      "$HOME/.local/scripts"
+      "$HOME/go/bin"
+    ];
+
+    # Randomize wallpaper
+    file = {
+      ".local/scripts/set-random-wallpaper.sh" = {
+        text = ''
+          #!/usr/bin/env bash
+
+          WALLPAPER_DIR="$HOME/Sync/Wallpapers_clean/"
+          CURRENT_WALL=$(hyprctl hyprpaper listloaded)
+          # Get the name of the focused monitor with hyprctl
+          FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
+          # Get a random wallpaper that is not the current one
+          WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
+
+          # Apply the selected wallpaper
+          hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"'';
+        executable = true;
+      };
+      ".local/bin/bazel".source = "${pkgs.bazelisk}/bin/bazelisk";
     };
   };
 
-  systemd.user.timers.set-random-wallpaper = {
-    Unit = {
-      Description = "Change wallpaper every 10 minutes";
-    };
-    Timer = {
-      OnBootSec = "1min";
-      OnUnitActiveSec = "10min";
-      Persistent = true;
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
+  systemd = {
+    user = {
+      services.set-random-wallpaper = {
+        Unit = {
+          Description = "Set a random wallpaper";
+        };
+        Service = {
+          ExecStart = "${config.home.homeDirectory}/.local/scripts/set-random-wallpaper.sh";
+          Type = "oneshot";
+        };
+      };
+      timers.set-random-wallpaper = {
+        Unit = {
+          Description = "Change wallpaper every 10 minutes";
+        };
+        Timer = {
+          OnBootSec = "1min";
+          OnUnitActiveSec = "10min";
+          Persistent = true;
+        };
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+      };
     };
   };
 
