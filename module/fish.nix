@@ -102,15 +102,20 @@
               echo -n ' '
           end
 
-          # Show that you are in a nix-shell
-          if test -n "$IN_NIX_SHELL"
-            echo -n "<nix-shell> "
-          end
-
           # PWD
           set_color $color_cwd
           echo -n (prompt_pwd)
           set_color normal
+
+
+          # Show that you are in a nix-shell
+          set -l nix_shell_info (
+            if test -n "$IN_NIX_SHELL"
+              echo -n "󱄅 "
+            end
+          )
+
+          echo -n (nix_shell_info)
 
           printf '%s ' (fish_vcs_prompt)
 
