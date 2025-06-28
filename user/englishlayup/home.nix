@@ -27,6 +27,12 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  # For `nix-env`, `nix-build`, `nix-shell` or any other Nix command
+  xdg.configFile."nixpkgs/config.nix".text = ''
+    {
+      allowUnfree = true;
+    }
+  '';
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
