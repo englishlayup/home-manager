@@ -81,7 +81,12 @@
           if not set -q __fish_git_prompt_color_cleanstate
               set -g __fish_git_prompt_color_cleanstate green --bold
           end
-
+          # Show that you are in a nix-shell
+          set -l nix_shell_info (
+            if test -n "$IN_NIX_SHELL"
+              echo -n "<nix-shell> "
+            end
+          )
           set -l color_cwd
           set -l suffix
           if functions -q fish_is_root_user; and fish_is_root_user
