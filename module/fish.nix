@@ -111,7 +111,8 @@
           # Show that you are in a nix-shell
           set -l nix_shell_info (
             if test -n "$IN_NIX_SHELL"
-              echo -n "󱄅 "
+              set_color brcyan
+              echo -n " 󱄅 "
             end
           )
 
