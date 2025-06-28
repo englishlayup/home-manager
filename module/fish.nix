@@ -115,7 +115,7 @@
             end
           )
 
-          echo -n (nix_shell_info)
+          echo -n "$nix_shell_info"
 
           printf '%s ' (fish_vcs_prompt)
 
