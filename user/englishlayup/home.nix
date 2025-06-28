@@ -196,7 +196,6 @@
           hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"'';
         executable = true;
       };
-      ".local/bin/bazel".source = "${pkgs.bazelisk}/bin/bazelisk";
     };
   };
 
