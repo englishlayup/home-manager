@@ -252,6 +252,7 @@
     userEmail = "duc.tran2027@gmail.com";
     extraConfig = {
       push.autoSetupRemote = true;
+      init.defaultBranch = "main";
     };
   };
 
