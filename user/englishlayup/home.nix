@@ -200,21 +200,9 @@
       ".local/scripts/toggle-pip-opacity.sh" = {
         text = ''
           #!/usr/bin/env bash
-
-          STATE_FILE="/tmp/hypr_pip_opacity_state"
-
-          # The rule we apply
-          RULE_OPAQUE='opacityrule=1.0 override:title:^(Picture in picture)$'
-          RULE_DIM='opacityrule=0.6 override:title:^(Picture in picture)$'
-
-          # Check current state
-          if [[ -f "$STATE_FILE" && "$(cat "$STATE_FILE")" == "dim" ]]; then
-              hyprctl keyword "$RULE_OPAQUE"
-              echo "opaque" > "$STATE_FILE"
-          else
-              hyprctl keyword "$RULE_DIM"
-              echo "dim" > "$STATE_FILE"
-          fi'';
+          # Find the PIP window address
+          PIP_WINDOW=$(hyprctl clients -j | jq -r '.[] | select(.title=="Picture in picture") | .address')
+          hyprctl dispatch setprop address:$PIP_WINDOW opaque toggle'';
         executable = true;
       };
     };
