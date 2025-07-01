@@ -203,24 +203,17 @@
 
           STATE_FILE="/tmp/hypr_pip_opacity_state"
 
-          # Find the window ID with title "Picture in Picture"
-          PIP_WINDOW=$(hyprctl clients -j | jq -r '.[] | select(.title=="Picture in picture") | .address')
+          # The rule we apply
+          RULE_OPAQUE='opacityrule=1.0 override:title:^(Picture in Picture)$'
+          RULE_DIM='opacityrule=0.6 override:title:^(Picture in Picture)$'
 
-          if [[ -z "$PIP_WINDOW" ]]; then
-              notify-send "PiP window not found"
-              exit 1
-          fi
-
-          # Determine current opacity
-          CURRENT_OPACITY=$(hyprctl getoption opacityrule | grep -F 'Picture in Picture' | awk '{print $2}' | tail -n1)
-
-          # Toggle opacity
-          if [[ "$CURRENT_OPACITY" == "0.6" ]]; then
-              hyprctl keyword opacityrule "1.0 override:title:^(Picture in Picture)$"
-              echo "100" > "$STATE_FILE"
+          # Check current state
+          if [[ -f "$STATE_FILE" && "$(cat "$STATE_FILE")" == "dim" ]]; then
+              hyprctl keyword "$RULE_OPAQUE"
+              echo "opaque" > "$STATE_FILE"
           else
-              hyprctl keyword opacityrule "0.6 override:title:^(Picture in Picture)$"
-              echo "60" > "$STATE_FILE"
+              hyprctl keyword "$RULE_DIM"
+              echo "dim" > "$STATE_FILE"
           fi'';
         executable = true;
       };
