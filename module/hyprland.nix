@@ -163,7 +163,7 @@ in
         "$mainMod, P, pseudo,"
         "$mainMod SHIFT, RETURN, exec, $lockCmd"
         "$mainMod, F, fullscreen, 1"
-        "$mainMod, O, exec, toggle-pip-opacity.sh"
+        "$mainMod, O, exec, ~/.local/scripts/toggle-pip-opacity.sh"
 
         # Application launchers
         "$mainMod, RETURN, exec, $terminal"
