@@ -179,8 +179,8 @@
       "$HOME/go/bin"
     ];
 
-    # Randomize wallpaper
     file = {
+      # Randomize wallpaper
       ".local/scripts/set-random-wallpaper.sh" = {
         text = ''
           #!/usr/bin/env bash
@@ -194,6 +194,34 @@
 
           # Apply the selected wallpaper
           hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"'';
+        executable = true;
+      };
+      # Toggle pip opacity
+      ".local/scripts/toggle-pip-opacity.sh" = {
+        text = ''
+          #!/usr/bin/env bash
+
+          STATE_FILE="/tmp/hypr_pip_opacity_state"
+
+          # Find the window ID with title "Picture in Picture"
+          PIP_WINDOW=$(hyprctl clients -j | jq -r '.[] | select(.title=="Picture in picture") | .address')
+
+          if [[ -z "$PIP_WINDOW" ]]; then
+              notify-send "PiP window not found"
+              exit 1
+          fi
+
+          # Determine current opacity
+          CURRENT_OPACITY=$(hyprctl getoption opacityrule | grep -F 'Picture in Picture' | awk '{print $2}' | tail -n1)
+
+          # Toggle opacity
+          if [[ "$CURRENT_OPACITY" == "0.6" ]]; then
+              hyprctl keyword opacityrule "1.0 override:title:^(Picture in Picture)$"
+              echo "100" > "$STATE_FILE"
+          else
+              hyprctl keyword opacityrule "0.6 override:title:^(Picture in Picture)$"
+              echo "60" > "$STATE_FILE"
+          fi'';
         executable = true;
       };
     };
