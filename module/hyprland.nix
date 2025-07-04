@@ -166,12 +166,12 @@ in
         "$mainMod, O, exec, ~/.local/scripts/toggle-pip-opacity.sh"
 
         # Screenshot
-        ## Screenshot a window
-        "$mainMod, PRINT, exec, hyprshot -m window"
-        ## Screenshot a monitor
-        ", PRINT, exec, hyprshot -m output"
         ## Screenshot a region
-        "$shiftMod, PRINT, exec, hyprshot -m region"
+        "$mainMod, PRINT, exec, hyprshot -m region"
+        ## Screenshot a window
+        ", PRINT, exec, hyprshot -m window"
+        ## Screenshot a monitor
+        "$shiftMod, PRINT, exec, hyprshot -m output"
 
         # Application launchers
         "$mainMod, RETURN, exec, $terminal"
