@@ -167,11 +167,11 @@ in
 
         # Screenshot
         ## Screenshot a region
-        "$mainMod, PRINT, exec, hyprshot -m region"
+        "$mainMod, PRINT, exec, hyprshot --freeze -m region"
         ## Screenshot a window
-        ", PRINT, exec, hyprshot -m window"
+        ", PRINT, exec, hyprshot --freeze -m window"
         ## Screenshot a monitor
-        "$shiftMod, PRINT, exec, hyprshot -m output"
+        "$shiftMod, PRINT, exec, hyprshot --freeze -m output"
 
         # Application launchers
         "$mainMod, RETURN, exec, $terminal"
