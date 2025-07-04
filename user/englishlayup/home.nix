@@ -100,6 +100,7 @@
     grim
     hyprshot
     gimp3
+    hyprpicker
   ];
 
   # Configure GTK settings through Home Manager
