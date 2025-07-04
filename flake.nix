@@ -38,20 +38,6 @@
             ./user/englishlayup/home.nix
           ];
         };
-        "ductran" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [
-            {
-              wayland.windowManager.hyprland = {
-                enable = true;
-                # set the flake package
-                package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-                portalPackage = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-              };
-            }
-            ./user/ductran/home.nix
-          ];
-        };
       };
     };
 }

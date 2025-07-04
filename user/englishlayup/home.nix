@@ -95,6 +95,11 @@
     libsForQt5.qt5ct # Qt5 configuration tool
     qt6ct # Qt6 configuration tool
     bibata-cursors
+    # Screenshot
+    slurp
+    grim
+    hyprshot
+    gimp3
   ];
 
   # Configure GTK settings through Home Manager
