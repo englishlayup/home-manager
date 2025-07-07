@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-if git diff --quiet '*.nix'; then
+if git diff --quiet; then
     echo "No changes detected, exiting."
     exit 0
 fi
