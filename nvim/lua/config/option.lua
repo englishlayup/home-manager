@@ -75,6 +75,7 @@ vim.keymap.set('t', '<C-w>h', '<C-\\><C-N><C-w>h', { desc = 'Move focus to the l
 vim.keymap.set('t', '<C-w>l', '<C-\\><C-N><C-w>l', { desc = 'Move focus to the right window' })
 vim.keymap.set('t', '<C-w>j', '<C-\\><C-N><C-w>j', { desc = 'Move focus to the lower window' })
 vim.keymap.set('t', '<C-w>k', '<C-\\><C-N><C-w>k', { desc = 'Move focus to the upper window' })
+vim.keymap.set('t', '<C-w>q', '<C-\\><C-N><C-w>q', { desc = 'Close terminal window' })
 
 vim.keymap.set('t', '<C-b>[', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
