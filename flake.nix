@@ -21,22 +21,32 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      homeConfigurations = {
-        "englishlayup" = home-manager.lib.homeManagerConfiguration {
+      mkHomeConfiguration =
+        {
+          username,
+          homeDirectory,
+        }:
+        home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
             {
+              home.username = username;
+              home.homeDirectory = homeDirectory;
               wayland.windowManager.hyprland = {
                 enable = true;
-                # set the flake package
                 package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
                 portalPackage = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
               };
             }
             ./home.nix
           ];
+        };
+    in
+    {
+      homeConfigurations = {
+        "englishlayup" = mkHomeConfiguration {
+          username = "englishlayup";
+          homeDirectory = "/home/englishlayup";
         };
       };
     };
