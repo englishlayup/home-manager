@@ -35,7 +35,7 @@
                 portalPackage = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
               };
             }
-            ./user/englishlayup/home.nix
+            ./home.nix
           ];
         };
       };

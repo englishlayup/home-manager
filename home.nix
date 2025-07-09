@@ -1,17 +1,20 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../../module/dunst.nix
-    ../../module/fish.nix
-    ../../module/hyprland.nix
-    ../../module/hyprpaper.nix
-    ../../module/waybar.nix
-    ../../module/wofi.nix
+    ./module/dunst.nix
+    ./module/fish.nix
+    ./module/hypridle.nix
+    ./module/hyprland.nix
+    ./module/hyprlock.nix
+    ./module/hyprpaper.nix
+    ./module/waybar.nix
+    ./module/wofi.nix
+    ./module/ghostty.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "ductran";
-  home.homeDirectory = "/home/ductran";
+  home.username = "englishlayup";
+  home.homeDirectory = "/home/englishlayup";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -24,6 +27,12 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  # For `nix-env`, `nix-build`, `nix-shell` or any other Nix command
+  xdg.configFile."nixpkgs/config.nix".text = ''
+    {
+      allowUnfree = true;
+    }
+  '';
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -31,15 +40,19 @@
     # Terminal
     ghostty
     # CLI Utils
+    yazi
+    hyperfine
+    delta
+    eza
     dust
     dua
     git
     btop
+    bat
     zoxide
     tldr
     wget
     curl
-    tree
     unzip
     zip
     htop
@@ -49,7 +62,7 @@
     fzf
     jq
     xxd
-    neovim
+    translate-shell
     # Dev tools
     ## Language server, debuger, formatter
     lua-language-server
@@ -72,6 +85,9 @@
     # Application
     obsidian
     anki-bin
+    libreoffice-qt6-fresh
+    mpv-unwrapped
+    musescore
     # Theme
     nwg-look # GTK theme configurator
     gruvbox-gtk-theme # Gruvbox GTK theme package
@@ -79,6 +95,12 @@
     libsForQt5.qt5ct # Qt5 configuration tool
     qt6ct # Qt6 configuration tool
     bibata-cursors
+    # Screenshot
+    slurp
+    grim
+    hyprshot
+    gimp3
+    hyprpicker
   ];
 
   # Configure GTK settings through Home Manager
@@ -145,57 +167,96 @@
     style.name = "adwaita-dark"; # Fallback Qt style
   };
 
-  # Environment variables for Qt theming
-  home.sessionVariables = {
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_STYLE_OVERRIDE = "adwaita-dark";
+  home = {
+    # Environment variables for Qt theming
+    sessionVariables = {
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      QT_STYLE_OVERRIDE = "adwaita-dark";
+    };
+
+    sessionVariables = {
+      EDITOR = "nvim";
+      # hint Electron apps to use Wayland:
+      NIXOS_OZONE_WL = "1";
+    };
+
+    sessionPath = [
+      "$HOME/.local/scripts"
+      "$HOME/go/bin"
+    ];
+
+    file = {
+      # Randomize wallpaper
+      ".local/scripts/set-random-wallpaper.sh" = {
+        text = ''
+          #!/usr/bin/env bash
+
+          WALLPAPER_DIR="$HOME/Sync/Wallpapers_clean/"
+          CURRENT_WALL=$(hyprctl hyprpaper listloaded)
+          # Get the name of the focused monitor with hyprctl
+          FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
+          # Get a random wallpaper that is not the current one
+          WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
+
+          # Apply the selected wallpaper
+          hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"'';
+        executable = true;
+      };
+      # Toggle pip opacity
+      ".local/scripts/toggle-pip-opacity.sh" = {
+        text = ''
+          #!/usr/bin/env bash
+          # Find the PIP window address
+          PIP_WINDOW=$(hyprctl clients -j | jq -r '.[] | select(.title=="Picture in picture") | .address')
+          hyprctl dispatch setprop address:$PIP_WINDOW opaque toggle > /dev/null'';
+        executable = true;
+      };
+    };
   };
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+  systemd = {
+    user = {
+      services.set-random-wallpaper = {
+        Unit = {
+          Description = "Set a random wallpaper";
+        };
+        Service = {
+          ExecStart = "${config.home.homeDirectory}/.local/scripts/set-random-wallpaper.sh";
+          Type = "oneshot";
+        };
+      };
+      timers.set-random-wallpaper = {
+        Unit = {
+          Description = "Change wallpaper every 10 minutes";
+        };
+        Timer = {
+          OnBootSec = "1min";
+          OnUnitActiveSec = "10min";
+          Persistent = true;
+        };
+        Install = {
+          WantedBy = [ "default.target" ];
+        };
+      };
+    };
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/englishlayup/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    EDITOR = "nvim";
-    # hint Electron apps to use Wayland:
-    NIXOS_OZONE_WL = "1";
-  };
-
-  home.sessionPath = [
-    "$HOME/.local/scripts"
-  ];
+  services.syncthing.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
   programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.yazi = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.eza = {
     enable = true;
     enableFishIntegration = true;
   };
@@ -206,6 +267,25 @@
     userEmail = "duc.tran2027@gmail.com";
     extraConfig = {
       push.autoSetupRemote = true;
+      init.defaultBranch = "main";
+    };
+  };
+
+  programs.btop = {
+    enable = true;
+    settings = {
+      color_theme = "gruvbox_dark_v2";
+      theme_background = false;
+      vim_keys = true;
+    };
+  };
+
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "auto";
+      "theme-dark" = "gruvbox-dark";
+      "theme-light" = "gruvbox-light";
     };
   };
 
