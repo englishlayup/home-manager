@@ -299,7 +299,7 @@
     configFile = {
       # Neovim configuration
       "nvim" = {
-        source = ../../nvim;
+        source = ./nvim;
         recursive = true;
       };
     };
