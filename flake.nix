@@ -41,6 +41,10 @@
           username = "englishlayup";
           homeDirectory = "/home/englishlayup";
         };
+        "ductran" = mkHomeConfiguration {
+          username = "ductran";
+          homeDirectory = "/home/ductran";
+        };
       };
     };
 }
