@@ -4,7 +4,8 @@
     enable = true;
     interactiveShellInit = ''
       fish_hybrid_key_bindings
-      bind \ce edit_command_buffer
+      bind -M insert \ce edit_command_buffer
+      bind -M default \ce edit_command_buffer
       set -g theme_color_scheme gruvbox-dark
       fnm env --use-on-cd --version-file-strategy=recursive --shell fish | source
     '';
