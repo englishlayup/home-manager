@@ -130,7 +130,6 @@ in
       input = {
         kb_layout = "us,us";
         kb_variant = ",intl";
-        kb_options = "caps:escape,grp:alt_shift_toggle";
         follow_mouse = 2;
         sensitivity = 0;
 
