@@ -19,7 +19,7 @@ in
       "$fileManager" = "yazi";
       "$clipboard" = "clipse";
       "$menu" = "wofi --show drun";
-      "$browser" = "librewolf";
+      "$browser" = "brave";
       "$note-app" = "obsidian";
       "$lockCmd" = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
 
