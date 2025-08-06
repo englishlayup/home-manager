@@ -70,14 +70,21 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Keybinds to make split navigation easier.
+--  Use ALT+<hjkl> to switch between windows
+--
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('t', '<C-w>h', '<C-\\><C-N><C-w>h', { desc = 'Move focus to the left window' })
-vim.keymap.set('t', '<C-w>l', '<C-\\><C-N><C-w>l', { desc = 'Move focus to the right window' })
-vim.keymap.set('t', '<C-w>j', '<C-\\><C-N><C-w>j', { desc = 'Move focus to the lower window' })
-vim.keymap.set('t', '<C-w>k', '<C-\\><C-N><C-w>k', { desc = 'Move focus to the upper window' })
-vim.keymap.set('t', '<C-w>q', '<C-\\><C-N><C-w>q', { desc = 'Close terminal window' })
+vim.keymap.set('n', '<A-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<A-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<A-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<A-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set('t', '<C-b>[', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<A-h>', '<C-\\><C-N><C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('t', '<A-l>', '<C-\\><C-N><C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('t', '<A-j>', '<C-\\><C-N><C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('t', '<A-k>', '<C-\\><C-N><C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+vim.keymap.set('t', '<C-q>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 vim.keymap.set('n', '<C-w>+', '<cmd>resize +5<CR>', { desc = 'Increase current window height by 5' })
 vim.keymap.set('n', '<C-w>-', '<cmd>resize -5<CR>', { desc = 'Decrease current window height by 5' })
