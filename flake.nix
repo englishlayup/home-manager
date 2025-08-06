@@ -5,7 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/c23168acf558fc24adc8240533c4fbf9591f183e";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
