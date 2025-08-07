@@ -177,6 +177,7 @@
     };
 
     sessionPath = [
+      "$HOME/.local/bin"
       "$HOME/.local/scripts"
       "$HOME/go/bin"
     ];
