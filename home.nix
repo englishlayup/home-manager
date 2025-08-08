@@ -209,6 +209,11 @@
           hyprctl dispatch setprop address:$PIP_WINDOW opaque toggle > /dev/null'';
         executable = true;
       };
+      # Long scripts
+      ".local/scripts" = {
+        source = ./scripts;
+        recursive = true;
+      };
     };
   };
 
@@ -308,6 +313,10 @@
       # Neovim configuration
       "nvim" = {
         source = ./nvim;
+        recursive = true;
+      };
+      "tmux" = {
+        source = ./tmux;
         recursive = true;
       };
     };
