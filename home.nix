@@ -36,6 +36,7 @@
     # Terminal
     ghostty
     # CLI Utils
+    tmux
     yazi
     hyperfine
     delta
