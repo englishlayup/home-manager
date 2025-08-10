@@ -75,13 +75,6 @@
           if not set -q __fish_git_prompt_color_cleanstate
               set -g __fish_git_prompt_color_cleanstate green --bold
           end
-          # Show that you are in a nix-shell
-          set -l nix_shell_info (
-            if test -n "$IN_NIX_SHELL"
-              set_color cyan
-              echo -n "󱄅 "
-            end
-          )
           set -l color_cwd
           set -l suffix
           if functions -q fish_is_root_user; and fish_is_root_user
@@ -103,13 +96,16 @@
               echo -n ' '
           end
 
-          echo -n "$nix_shell_info"
+          # Show whether you are in a nix-shell
+          if test -n "$IN_NIX_SHELL"
+            set_color cyan
+            echo -n "󱄅 "
+          end
 
           # PWD
           set_color $color_cwd
           echo -n (prompt_pwd)
           set_color normal
-
 
           printf '%s ' (fish_vcs_prompt)
 
@@ -119,6 +115,12 @@
           echo -n $prompt_status
           set_color normal
 
+          set jobcount (count (jobs -p))
+          if test $jobcount -gt 0
+              echo -n "[⚙ $jobcount] "
+          end
+
+          echo
           echo -n "$suffix "
         '';
       };
