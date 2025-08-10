@@ -117,10 +117,26 @@
 
           set jobcount (count (jobs -p))
           if test $jobcount -gt 0
-              echo -n "[⚙ $jobcount] "
+            set_color FF9500
+            echo -n "[⚙ $jobcount] "
+            set_color normal
           end
 
           echo
+          switch $fish_bind_mode
+            case default insert
+              set_color green
+              printf "[I]"  # Insert mode
+            case replace replace_one
+              set_color magenta
+              printf "[R]"  # Replace mode
+            case visual
+              set_color yellow
+              printf "[V]"  # Visual mode
+            case normal
+              set_color red
+              printf "[N]"  # Normal mode
+          end
           echo -n "$suffix "
         '';
       };
