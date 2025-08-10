@@ -44,10 +44,7 @@
       };
       fish_mode_prompt = {
         description = "Vi mode indicator for prompt";
-        body = ''
-          function fish_mode_prompt; end
-          funcsave fish_mode_prompt
-        '';
+        body = "";
       };
       fish_prompt = {
         description = "Write out the prompt";
