@@ -130,7 +130,7 @@
           end
 
           echo
-          printf '%s ' (fish_default_mode_prompt)
+          echo -n (fish_default_mode_prompt)
           echo -n "$suffix "
         '';
       };
