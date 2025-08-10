@@ -42,6 +42,13 @@
           git init $r
         '';
       };
+      fish_mode_prompt = {
+        description = "Vi mode indicator for prompt";
+        body = ''
+          function fish_mode_prompt; end
+          funcsave fish_mode_prompt
+        '';
+      };
       fish_prompt = {
         description = "Write out the prompt";
         body = ''
@@ -123,20 +130,7 @@
           end
 
           echo
-          switch $fish_bind_mode
-            case default insert
-              set_color green
-              printf "[I]"  # Insert mode
-            case replace replace_one
-              set_color magenta
-              printf "[R]"  # Replace mode
-            case visual
-              set_color yellow
-              printf "[V]"  # Visual mode
-            case normal
-              set_color red
-              printf "[N]"  # Normal mode
-          end
+          echo -n fish_default_mode_prompt
           echo -n "$suffix "
         '';
       };
