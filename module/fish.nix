@@ -122,7 +122,7 @@
           set jobcount (count (jobs -p))
           if test $jobcount -gt 0
             set_color FF9500
-            echo -n "[⚙ $jobcount] "
+            echo -n "⚙ $jobcount "
             set_color normal
           end
 
