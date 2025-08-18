@@ -286,9 +286,7 @@
   programs.bat = {
     enable = true;
     config = {
-      theme = "auto";
-      "theme-dark" = "gruvbox-dark";
-      "theme-light" = "gruvbox-light";
+      theme = "gruvbox-dark";
     };
   };
 
