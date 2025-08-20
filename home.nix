@@ -135,10 +135,6 @@
       gtk-button-images = 1;
       gtk-menu-images = 1;
     };
-
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
   };
 
   # Additional dconf settings for consistent theming
@@ -153,7 +149,6 @@
   # XDG settings for theme consistency
   xdg.configFile."gtk-4.0/settings.ini".text = ''
     [Settings]
-    gtk-application-prefer-dark-theme=1
     gtk-theme-name=Gruvbox-Dark
     gtk-icon-theme-name=Gruvbox-Plus-Dark
   '';
