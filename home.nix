@@ -72,6 +72,7 @@
     shellcheck
     delve
     nixfmt-rfc-style
+    starpls
     ## Package manager
     uv
     fnm
