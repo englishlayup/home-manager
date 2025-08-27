@@ -13,4 +13,4 @@ home-manager switch &>nixos-switch.log || (
 grep --color error < nixos-switch.log  && exit 1)
 current=$(home-manager generations | head -n 1 | awk '{ print $1,$2,$3,$4,$5 }')
 git commit -am "$current"
-notify-send -e "Home-Manger Rebuilt OK!" --icon=software-update-available
+command -v notify-send >/dev/null && notify-send -e "Home-Manger Rebuilt OK!" --icon=software-update-available || echo "Home-Manager Rebuilt OK!"
