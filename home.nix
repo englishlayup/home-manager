@@ -125,7 +125,9 @@
     hyprshot
     gimp3
     hyprpicker
-    zathura # PDF viewer
+    # PDF viewer
+    zathura
+    xournalpp
   ];
 
   # Configure GTK settings through Home Manager
