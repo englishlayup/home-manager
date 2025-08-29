@@ -23,12 +23,37 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  # For `nix-env`, `nix-build`, `nix-shell` or any other Nix command
-  xdg.configFile."nixpkgs/config.nix".text = ''
-    {
-      allowUnfree = true;
-    }
-  '';
+  xdg = {
+    enable = true;
+    configFile = {
+      # Neovim configuration
+      "nvim" = {
+        source = ./nvim;
+        recursive = true;
+      };
+      "tmux" = {
+        source = ./tmux;
+        recursive = true;
+      };
+      # For `nix-env`, `nix-build`, `nix-shell` or any other Nix command
+      "nixpkgs/config.nix".text = ''
+        {
+          allowUnfree = true;
+        }
+      '';
+      "gtk-4.0/settings.ini".text = ''
+        [Settings]
+        gtk-theme-name=Gruvbox-Dark
+        gtk-icon-theme-name=Gruvbox-Plus-Dark
+      '';
+    };
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+      };
+    };
+  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -146,13 +171,6 @@
       color-scheme = "prefer-dark";
     };
   };
-
-  # XDG settings for theme consistency
-  xdg.configFile."gtk-4.0/settings.ini".text = ''
-    [Settings]
-    gtk-theme-name=Gruvbox-Dark
-    gtk-icon-theme-name=Gruvbox-Plus-Dark
-  '';
 
   # Qt configuration
   qt = {
@@ -302,18 +320,4 @@
     withPython3 = true;
   };
 
-  xdg = {
-    enable = true;
-    configFile = {
-      # Neovim configuration
-      "nvim" = {
-        source = ./nvim;
-        recursive = true;
-      };
-      "tmux" = {
-        source = ./tmux;
-        recursive = true;
-      };
-    };
-  };
 }
