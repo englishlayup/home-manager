@@ -51,6 +51,7 @@
       enable = true;
       defaultApplications = {
         "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+        "x-scheme-handler/terminal" = [ "ghostty.desktop" ];
       };
     };
   };
@@ -184,12 +185,10 @@
     sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt5ct";
       QT_STYLE_OVERRIDE = "adwaita-dark";
-    };
-
-    sessionVariables = {
       EDITOR = "nvim";
       # hint Electron apps to use Wayland:
       NIXOS_OZONE_WL = "1";
+      TERMINAL = "ghostty";
     };
 
     sessionPath = [
