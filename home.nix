@@ -104,7 +104,8 @@
     fnm
     go
     ## Build tool
-    bazelisk
+    cmake
+    ninja
     gnumake
     # Application
     obsidian
