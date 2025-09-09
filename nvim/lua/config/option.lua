@@ -103,10 +103,7 @@ end, {
 vim.keymap.set('n', '<leader>py', '<cmd>PythonRepl<CR>', { desc = 'Start [Py]thon REPL' })
 
 vim.keymap.set('n', '<leader>t', function()
-    vim.cmd.vnew()
     vim.cmd.term()
-    vim.cmd.wincmd 'J'
-    vim.api.nvim_win_set_height(0, 15)
   end,
   { desc = 'Start [T]erminal' })
 
@@ -139,3 +136,11 @@ vim.keymap.set('n', 'yd', function()
     vim.notify('Copied diagnostics', vim.log.levels.INFO)
   end,
   { desc = '[Y]ank [D]iagnostic on current line', silent = true })
+
+vim.keymap.set('v', '<leader>k', function()
+    vim.cmd 'normal! "ay'
+    vim.cmd '%delete _'
+    vim.cmd '0put a'
+    vim.cmd 'normal! gg'
+  end,
+  { desc = '[K]eep current selection only', silent = true })
