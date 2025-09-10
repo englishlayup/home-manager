@@ -140,7 +140,7 @@ vim.keymap.set('n', 'yd', function()
 vim.keymap.set('v', '<leader>k', function()
     vim.cmd 'normal! "ay'
     vim.cmd '%delete _'
-    vim.cmd '0put a'
+    vim.cmd 'normal! "ap'
     vim.cmd 'normal! gg'
   end,
   { desc = '[K]eep current selection only', silent = true })
