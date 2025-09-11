@@ -15,15 +15,6 @@ return {
       vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
     end,
   },
-  -- Auto-pairs brackets
-  {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    config = true,
-    opts = {
-      check_ts = true,
-    }
-  },
   -- "gc" to comment visual regions/lines
   {
     'numToStr/Comment.nvim',
@@ -54,5 +45,17 @@ return {
         opts = {}
       }
     },
+  },
+  -- Run git commands with :Git or :G
+  {
+    'tpope/vim-fugitive',
+  },
+  -- Provides mappings to easily delete, change and add such surroundings in pairs
+  {
+    'tpope/vim-surround',
+  },
+  -- "." command support for vim-surround
+  {
+    'tpope/vim-repeat',
   },
 }
