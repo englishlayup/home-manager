@@ -17,9 +17,6 @@
       cat = "bat";
       cd = "z";
     };
-    shellAliases = {
-      bazel = "bazelisk";
-    };
     functions = {
       cdg = {
         description = "cd relative to git root";
