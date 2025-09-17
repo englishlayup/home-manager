@@ -14,9 +14,11 @@ return {
       signature = { enabled = true },
       sources = {
         per_filetype = {
-          lua = { inherit_defaults = true, 'lazydev' }
+          sql = { 'dadbod' },
+          lua = { inherit_defaults = true, 'lazydev' },
         },
         providers = {
+          dadbod = { module = 'vim_dadbod_completion.blink' },
           lazydev = {
             name = 'LazyDev',
             module = 'lazydev.integrations.blink',
