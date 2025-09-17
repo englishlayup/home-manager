@@ -58,8 +58,4 @@ return {
   {
     'tpope/vim-repeat',
   },
-  -- Vim plugin for interacting with databases
-  {
-    'tpope/vim-dadbod',
-  }
 }

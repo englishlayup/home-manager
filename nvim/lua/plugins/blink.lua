@@ -14,7 +14,7 @@ return {
       signature = { enabled = true },
       sources = {
         per_filetype = {
-          sql = { 'dadbod' },
+          sql = { inherit_defaults = true, 'dadbod' },
           lua = { inherit_defaults = true, 'lazydev' },
         },
         providers = {
