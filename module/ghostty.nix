@@ -9,7 +9,7 @@
       # Mouse
       mouse-hide-while-typing = true;
       # Theme
-      theme = "dark:GruvboxDark,light:GruvboxLight";
+      theme = "dark:Gruvbox Dark,light:Gruvbox Light";
       background-opacity = 0.9;
       shell-integration = "fish";
     };
