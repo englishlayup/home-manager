@@ -86,6 +86,7 @@
     jq
     xxd
     translate-shell
+    wl-clipboard
     # Dev tools
     ## Language server, debuger, formatter
     lua-language-server
