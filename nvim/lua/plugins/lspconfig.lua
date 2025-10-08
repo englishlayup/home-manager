@@ -4,7 +4,7 @@ return {
     dependencies = {
       {
         'j-hui/fidget.nvim',
-        tag = 'v1.5.0',
+        tag = 'v1.6.1',
         opts = {}
       },
     },
