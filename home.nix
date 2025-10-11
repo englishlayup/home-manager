@@ -99,6 +99,8 @@
     delve
     nixfmt-rfc-style
     starpls
+    ## some nvim plugins need a C compiler
+    clang
     ## Package manager
     uv
     fnm
@@ -192,6 +194,8 @@
       # hint Electron apps to use Wayland:
       NIXOS_OZONE_WL = "1";
       TERMINAL = "ghostty";
+      CC = "${pkgs.clang}/bin/clang";
+      CXX = "${pkgs.clang}/bin/clang++";
     };
 
     sessionPath = [
