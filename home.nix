@@ -235,6 +235,21 @@
         source = ./scripts;
         recursive = true;
       };
+      ".local/bin/gcc" = {
+        executable = true;
+        text = ''
+          #!/usr/bin/env bash
+          exec ${pkgs.clang}/bin/clang "$@"
+        '';
+      };
+
+      ".local/bin/g++" = {
+        executable = true;
+        text = ''
+          #!/usr/bin/env bash
+          exec ${pkgs.clang}/bin/clang++ "$@"
+        '';
+      };
     };
   };
 
