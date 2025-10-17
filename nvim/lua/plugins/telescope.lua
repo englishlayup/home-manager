@@ -5,21 +5,33 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
     },
     config = function()
       require 'telescope'.setup {
-        pickers = {
-          find_files = {
-            theme = 'ivy'
+        defaults = {
+          sorting_strategy = 'ascending',
+          borderchars = {
+            '─', -- top
+            '│', -- right
+            '─', -- bottom
+            '│', -- left
+            '┌', -- top-left
+            '┐', -- top-right
+            '┘', -- bottom-right
+            '└', -- bottom-left
           },
-          git_files = {
-            theme = 'ivy'
-          },
-          buffers = {
-            theme = 'dropdown'
-          },
-        }
+          path_displays = { 'smart' },
+          layout_config = {
+            height = 100,
+            width = 400,
+            prompt_position = 'top',
+            preview_cutoff = 40,
+          }
+        },
       }
+      require 'telescope'.load_extension 'fzf'
+      require 'telescope'.load_extension 'ui-select'
 
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
@@ -30,7 +42,7 @@ return {
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', require 'telescope.multigrep'.live_multigrep, { desc = '[S]earch with Multi[G]rep' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>sb', function()
+      vim.keymap.set('n', '<leader>b', function()
         builtin.buffers { sort_mru = true }
       end, { desc = '[S]earch [B]uffers' })
 
