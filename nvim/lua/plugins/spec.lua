@@ -68,5 +68,9 @@ return {
     keys = {
       { '<leader>p', '<cmd>PasteImage<cr>', desc = '[P]aste image from system clipboard' },
     },
-  }
+  },
+  {
+    'watch.nvim',
+    dev = true,
+  },
 }

@@ -21,5 +21,8 @@ require 'lazy'.setup {
   rocks = {
     enabled = false,
   },
+  dev = {
+    path = '~/personal/plugins/',
+  },
   install = { colorscheme = { 'habamax' } },
 }
