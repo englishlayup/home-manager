@@ -27,7 +27,6 @@ return {
         },
         ruff = {},
         bashls = {},
-        bzl = {},
         starpls = {},
       }
     },
