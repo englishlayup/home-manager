@@ -10,7 +10,11 @@ return {
         preset = 'ivy_split',
       },
     },
-    indent = {},
+    indent = {
+      animate = {
+        enabled = false,
+      }
+    },
   },
   keys = {
     { '<leader>sf', function() Snacks.picker.smart() end,                                 desc = 'Smart [S]earch [F]iles' },
