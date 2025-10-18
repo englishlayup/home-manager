@@ -1,5 +1,7 @@
 return {
   'folke/snacks.nvim',
+  lazy = false,
+  priority = 1000,
   ---@type snacks.Config
   opts = {
     picker = {
@@ -8,6 +10,7 @@ return {
         preset = 'ivy_split',
       },
     },
+    indent = {},
   },
   keys = {
     { '<leader>sf', function() Snacks.picker.smart() end,                                 desc = 'Smart [S]earch [F]iles' },

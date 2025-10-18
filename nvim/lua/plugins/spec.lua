@@ -1,5 +1,11 @@
 -- Plugins that don't need their own file
 return {
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {
+      max_lines = 1,
+    }
+  },
   -- Package manager for LSP
   {
     'williamboman/mason.nvim',
@@ -19,12 +25,6 @@ return {
   -- "gc" to comment visual regions/lines
   {
     'numToStr/Comment.nvim',
-    opts = {}
-  },
-  -- Add indentation guides
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
     opts = {}
   },
   -- Highlight TODO comments
