@@ -88,8 +88,10 @@ vim.keymap.set('t', '<C-q>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 vim.keymap.set('n', '<C-w>+', '<cmd>resize +5<CR>', { desc = 'Increase current window height by 5' })
 vim.keymap.set('n', '<C-w>-', '<cmd>resize -5<CR>', { desc = 'Decrease current window height by 5' })
-vim.keymap.set('n', '<C-w>>', '<cmd>vertical resize +5<CR>', { desc = 'Increase current window width by 5' })
-vim.keymap.set('n', '<C-w><', '<cmd>vertical resize -5<CR>', { desc = 'Decrease current window width by 5' })
+vim.keymap.set('n', '<C-w>>', '<cmd>vertical resize +5<CR>',
+  { desc = 'Increase current window width by 5' })
+vim.keymap.set('n', '<C-w><', '<cmd>vertical resize -5<CR>',
+  { desc = 'Decrease current window width by 5' })
 
 -- Start terminal in insert mode
 vim.cmd [[autocmd TermOpen * startinsert]]

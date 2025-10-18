@@ -5,16 +5,14 @@ return {
     picker = {
       layout = {
         cycle = true,
-        preset = function()
-          return vim.o.columns >= 120 and 'ivy_split' or 'vertical'
-        end,
+        preset = 'ivy_split',
       },
     },
   },
   keys = {
     { '<leader>sf', function() Snacks.picker.smart() end,                                 desc = 'Smart [S]earch [F]iles' },
     { '<leader>b',  function() Snacks.picker.buffers() end,                               desc = 'Search [B]uffers' },
-    { '<leader>:',  function() Snacks.picker.command_history() end,                       desc = 'Command History' },
+    { '<leader>:',  function() Snacks.picker.command_history() end,                       desc = 'Search Command History' },
     { '<leader>sh', function() Snacks.picker.help() end,                                  desc = 'Search [H]elp Pages' },
     { '<leader>sr', function() Snacks.picker.git_files() end,                             desc = '[S]earch Git [Repo]' },
     { '<leader>sg', function() Snacks.picker.grep() end,                                  desc = '[S]earch [G]rep' },
