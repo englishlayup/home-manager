@@ -87,6 +87,7 @@
     xxd
     translate-shell
     wl-clipboard
+    imagemagick
     # Dev tools
     ## Language server, debuger, formatter
     lua-language-server
