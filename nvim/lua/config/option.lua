@@ -134,3 +134,17 @@ vim.keymap.set('v', '<leader>k', function()
     vim.cmd 'normal! gg'
   end,
   { desc = '[K]eep current selection only', silent = true })
+
+local qf_shell_cmd = function(cmd)
+  local keys = vim.fn.systemlist(cmd)
+  local qflist = vim.tbl_map(function(key)
+    return { filename = key, lnum = 1, col = 1 }
+  end, keys)
+  vim.fn.setqflist(qflist)
+  vim.cmd 'copen'
+end
+
+vim.api.nvim_create_user_command('QfShell', function()
+  local cmd = vim.fn.input 'Command: '
+  qf_shell_cmd(cmd)
+end, {})
