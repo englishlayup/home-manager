@@ -308,7 +308,13 @@
     extraConfig = {
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
+      rerere.enabled = true;
+      rerere.autoUpdate = true;
+      branch.sort = "-committerdate";
+      column.ui = "auto";
+      alias.fpush = "push --force-with-lease";
     };
+    lfs.enable = true;
   };
 
   programs.btop = {
