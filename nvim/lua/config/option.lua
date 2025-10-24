@@ -135,6 +135,11 @@ vim.keymap.set('v', '<leader>k', function()
   end,
   { desc = '[K]eep current selection only', silent = true })
 
+vim.keymap.set('n', '<leader>r', function()
+    vim.cmd 'make'
+  end,
+  { desc = 'Make', silent = true })
+
 local qf_shell_cmd = function(cmd)
   local keys = vim.fn.systemlist(cmd)
   local qflist = vim.tbl_map(function(key)
