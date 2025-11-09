@@ -27,5 +27,6 @@ return {
     { '<leader>sk', function() Snacks.picker.keymaps() end,                               desc = '[S]earch [K]eymaps' },
     { '<leader>sa', function() Snacks.picker.autocmds() end,                              desc = '[S]earch [A]utocmds' },
     { '<leader>sn', function() Snacks.picker.files { cwd = vim.fn.stdpath 'config' } end, desc = '[S]earch [N]eovim Files' },
+    { '<leader>n',  function() Snacks.picker.grep { cwd = '~/notes' } end,                desc = 'Grep ~/[n]otes' },
   },
 }
