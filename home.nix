@@ -1,4 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  myPackages = import ./module/defaultPackages.nix {
+    inherit pkgs lib;
+  };
+in
 {
   imports = [
     ./module/dunst.nix
@@ -9,7 +19,7 @@
     ./module/hyprpaper.nix
     ./module/waybar.nix
     ./module/wofi.nix
-    ./module/ghostty.nix
+    ./module/bundle-gui.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
@@ -21,7 +31,6 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
-  ghostty.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   xdg = {
@@ -59,83 +68,6 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
-    # Terminal
-    ghostty
-    # CLI Utils
-    tmux
-    yazi
-    hyperfine
-    delta
-    eza
-    dust
-    dua
-    git
-    btop
-    bat
-    zoxide
-    tldr
-    wget
-    curl
-    unzip
-    zip
-    htop
-    neofetch
-    fd
-    ripgrep
-    fzf
-    jq
-    xxd
-    translate-shell
-    wl-clipboard
-    imagemagick
-    # Dev tools
-    ## Language server, debuger, formatter
-    lua-language-server
-    clang-tools
-    gopls
-    pyright
-    ruff
-    bash-language-server
-    buildifier
-    shellcheck
-    delve
-    nixfmt-rfc-style
-    starpls
-    nil
-    ## some nvim plugins need a C compiler
-    clang
-    ## Package manager
-    uv
-    fnm
-    go
-    ## Build tool
-    cmake
-    ninja
-    gnumake
-    # Application
-    obsidian
-    anki-bin
-    libreoffice-qt6-fresh
-    mpv-unwrapped
-    musescore
-    # Theme
-    nwg-look # GTK theme configurator
-    gruvbox-gtk-theme # Gruvbox GTK theme package
-    gruvbox-dark-icons-gtk # Gruvbox icon theme (optional)
-    libsForQt5.qt5ct # Qt5 configuration tool
-    qt6ct # Qt6 configuration tool
-    bibata-cursors
-    # Screenshot
-    slurp
-    grim
-    hyprshot
-    gimp3
-    hyprpicker
-    # PDF viewer
-    zathura
-    xournalpp
-  ];
 
   # Configure GTK settings through Home Manager
   gtk = {
@@ -190,6 +122,7 @@
   };
 
   home = {
+    packages = myPackages.homePackages;
     # Environment variables for Qt theming
     sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt5ct";
