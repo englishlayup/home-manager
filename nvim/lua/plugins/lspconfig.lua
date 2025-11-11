@@ -28,6 +28,7 @@ return {
         ruff = {},
         bashls = {},
         starpls = {},
+        nil_ls = {},
       }
     },
     config = function(_, opts)

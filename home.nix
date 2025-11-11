@@ -102,6 +102,7 @@
     delve
     nixfmt-rfc-style
     starpls
+    nil
     ## some nvim plugins need a C compiler
     clang
     ## Package manager
