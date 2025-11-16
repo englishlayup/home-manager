@@ -50,6 +50,7 @@ let
     vscode-langservers-extracted
     templ
     tailwindcss-language-server
+    tree-sitter
     ## some nvim plugins need a C compiler
     clang
     ## Package manager
