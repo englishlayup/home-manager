@@ -29,7 +29,19 @@ return {
         bashls = {},
         starpls = {},
         nil_ls = {},
-      }
+        templ = {},
+        htmx = {},
+        html = {},
+        tailwindcss = {
+          settings = {
+            tailwindCSS = {
+              includeLanguages = {
+                templ = 'html',
+              },
+            },
+          },
+        },
+      },
     },
     config = function(_, opts)
       for server, config in pairs(opts.servers) do

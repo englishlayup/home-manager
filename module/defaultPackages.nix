@@ -46,6 +46,10 @@ let
     nixfmt-rfc-style
     starpls
     nil
+    htmx-lsp
+    vscode-langservers-extracted
+    templ
+    tailwindcss-language-server
     ## some nvim plugins need a C compiler
     clang
     ## Package manager
