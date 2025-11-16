@@ -63,6 +63,13 @@ return {
               end
               return out
             end
+          },
+          snippets = {
+            opts = {
+              extended_filetypes = {
+                templ = { 'html' },
+              }
+            }
           }
         },
       },
