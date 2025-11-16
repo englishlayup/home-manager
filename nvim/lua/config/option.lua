@@ -153,3 +153,5 @@ vim.api.nvim_create_user_command('QfShell', function()
   local cmd = vim.fn.input 'Command: '
   qf_shell_cmd(cmd)
 end, {})
+
+vim.keymap.set('n', '<leader>c', '1z=e', { desc = '[C]orrect Spelling' })

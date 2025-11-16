@@ -67,7 +67,7 @@ return {
     event = 'VeryLazy',
     opts = {},
     keys = {
-      { '<leader>p', '<cmd>PasteImage<cr>', desc = '[P]aste image from system clipboard' },
+      { '<leader>i', '<cmd>PasteImage<cr>', desc = '[I]nsert image from system clipboard' },
     },
   }
 }
