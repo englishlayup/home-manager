@@ -21,6 +21,11 @@ return {
       nix = { 'nixfmt' },
       json = { 'jq' },
     },
+    formatters = {
+      jq = {
+        append_args = { '--indent', '2' },
+      },
+    },
     default_format_opts = {
       lsp_format = 'fallback',
     },
