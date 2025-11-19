@@ -19,6 +19,7 @@ return {
       bzl = { 'buildifier' },
       c = { 'clang-format' },
       nix = { 'nixfmt' },
+      json = { 'jq' },
     },
     default_format_opts = {
       lsp_format = 'fallback',
