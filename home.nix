@@ -239,9 +239,11 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Duc Tran";
-    userEmail = "duc.tran2027@gmail.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Duc Tran";
+        email = "duc.tran2027@gmail.com";
+      };
       push.autoSetupRemote = true;
       init.defaultBranch = "main";
       rerere.enabled = true;

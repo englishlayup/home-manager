@@ -73,7 +73,7 @@ let
     gruvbox-gtk-theme # Gruvbox GTK theme package
     gruvbox-dark-icons-gtk # Gruvbox icon theme (optional)
     libsForQt5.qt5ct # Qt5 configuration tool
-    qt6ct # Qt6 configuration tool
+    qt6Packages.qt6ct # Qt6 configuration tool
     bibata-cursors
     ## Screenshot
     slurp
