@@ -211,7 +211,6 @@ in
         "match:class .*(NetworkManager|nm-applet|nm-connection-editor|blueman).*, size 500 600"
         "match:class .*(pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*, size 800 600"
         "match:class .*, suppress_event maximize"
-        # "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 
         # Picture in picture
         "match:title Picture in picture, float on"
