@@ -125,7 +125,7 @@ vim.keymap.set('n', 'yd', function()
     vim.fn.setreg('+', text)
     vim.notify('Copied diagnostics', vim.log.levels.INFO)
   end,
-  { desc = '[Y]ank [D]iagnostic on current line', silent = true })
+  { desc = '[Y]ank [D]iagnostic of current line', silent = true })
 
 vim.keymap.set('v', '<leader>k', function()
     vim.cmd 'normal! "ay'
