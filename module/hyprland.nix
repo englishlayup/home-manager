@@ -31,7 +31,6 @@ in
         "wl-paste --type image --watch clipse -store-image"
         "~/.local/scripts/set-random-wallpaper.sh"
         "$browser"
-        "$note-app"
         "$terminal"
       ];
 
@@ -55,57 +54,18 @@ in
 
       # Decoration
       decoration = {
-        rounding = 10;
+        rounding = 5;
         rounding_power = 2;
-        active_opacity = 1.0;
-        inactive_opacity = 1.0;
-
         shadow = {
-          enabled = false;
+          enabled = true;
           range = 4;
           render_power = 3;
           color = "rgba(${theme.scheme.base00}ee)";
         };
-
-        blur = {
-          enabled = false;
-          size = 3;
-          passes = 1;
-          vibrancy = 0.1696;
-        };
       };
 
-      # Animations
-      animations = {
-        enabled = false;
-
-        bezier = [
-          "easeOutQuint,0.23,1,0.32,1"
-          "easeInOutCubic,0.65,0.05,0.36,1"
-          "linear,0,0,1,1"
-          "almostLinear,0.5,0.5,0.75,1.0"
-          "quick,0.15,0,0.1,1"
-        ];
-
-        animation = [
-          "global, 1, 10, default"
-          "border, 1, 5.39, easeOutQuint"
-          "windows, 1, 4.79, easeOutQuint"
-          "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
-          "windowsOut, 1, 1.49, linear, popin 87%"
-          "fadeIn, 1, 1.73, almostLinear"
-          "fadeOut, 1, 1.46, almostLinear"
-          "fade, 1, 3.03, quick"
-          "layers, 1, 3.81, easeOutQuint"
-          "layersIn, 1, 4, easeOutQuint, fade"
-          "layersOut, 1, 1.5, linear, fade"
-          "fadeLayersIn, 1, 1.79, almostLinear"
-          "fadeLayersOut, 1, 1.39, almostLinear"
-          "workspaces, 1, 1.94, almostLinear, fade"
-          "workspacesIn, 1, 1.21, almostLinear, fade"
-          "workspacesOut, 1, 1.94, almostLinear, fade"
-        ];
-      };
+      # Disable animations
+      animations.enabled = false;
 
       # Dwindle layout
       dwindle = {
@@ -243,30 +203,29 @@ in
 
       # Window rules
       windowrule = [
-        "workspace 2, class:^($browser).*"
-        "workspace 3, class:^($note-app).*"
-        "workspace 4, initialTitle:YouTube"
-        "workspace 4, initialTitle:YouTube Music"
-        "workspace 4, initialTitle:Nebula"
-
-        "float, class:com.$clipboard"
-        "size 622 652, class:com.$clipboard"
-        "stayfocused, class:com.$clipboard"
-        "float, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
-        "size 500 600, class:.*(NetworkManager|nm-applet|nm-connection-editor|blueman).*"
-        "size 800 600, class:.*(pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*"
-        "suppressevent maximize, class:.*"
+        "match:class ^($browser).*, workspace 2"
+        "match:class ^($note-app).*, workspace 3,"
+        "match:title YouTube, workspace 4"
+        "match:title YouTube Music, workspace 4, "
+        "match:title Nebula, workspace 4,"
+        "match:class com.$clipboard, float"
+        "match:class com.$clipboard, size 622 652"
+        "match:class com.$clipboard, stayfocused"
+        "match:class .*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*, float"
+        "match:class .*(NetworkManager|nm-applet|nm-connection-editor|blueman).*, size 500 600"
+        "match:class .*(pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*, size 800 600"
+        "match:class .*, suppressevent maximize"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 
         # Picture in picture
-        "float, title:Picture in picture"
-        "pin, title:Picture in picture"
-        "noinitialfocus, title:Picture in picture"
-        "noborder, title:Picture in picture"
-        "opacity 1.0 0.6, title:Picture in picture"
-        "keepaspectratio, title:Picture in picture"
-        "move 100%-w-0 100%-w-0, title:Picture in picture"
-        "size 640 360, title:Picture in picture"
+        "match:title Picture in picture, float"
+        "match:title Picture in picture, pin"
+        "match:title Picture in picture, noinitialfocus"
+        "match:title Picture in picture, noborder"
+        "match:title Picture in picture, opacity 1.0 0.6"
+        "match:title Picture in picture, keepaspectratio"
+        "match:title Picture in picture, move 100%-w-0 100%-w-0"
+        "match:title Picture in picture, size 640 360"
       ];
     };
   };
