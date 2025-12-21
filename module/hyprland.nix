@@ -220,10 +220,10 @@ in
         # Picture in picture
         "match:title Picture in picture, float on"
         "match:title Picture in picture, pin on"
-        "match:title Picture in picture, no_initial_focus"
-        "match:title Picture in picture, noborder"
+        "match:title Picture in picture, no_initial_focus on"
+        "match:title Picture in picture, border_size 0"
         "match:title Picture in picture, opacity 1.0 0.6"
-        "match:title Picture in picture, keepaspectratio"
+        "match:title Picture in picture, keep_aspect_ratio on"
         "match:title Picture in picture, move 100%-w-0 100%-w-0"
         "match:title Picture in picture, size 640 360"
       ];
