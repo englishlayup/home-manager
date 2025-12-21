@@ -56,12 +56,8 @@ in
       decoration = {
         rounding = 5;
         rounding_power = 2;
-        shadow = {
-          enabled = true;
-          range = 4;
-          render_power = 3;
-          color = "rgba(${theme.scheme.base00}ee)";
-        };
+        shadow.enabled = false;
+        blur.enabled = false;
       };
 
       # Disable animations
