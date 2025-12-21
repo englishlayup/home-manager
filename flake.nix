@@ -8,6 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs =
@@ -16,34 +17,34 @@
       home-manager,
       ...
     }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      mkHomeConfiguration =
-        {
-          username,
-          homeDirectory,
-        }:
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+    {
+      homeConfigurations = {
+        "englishlayup@framework-13" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             {
-              home.username = username;
-              home.homeDirectory = homeDirectory;
+              wayland.windowManager.hyprland = {
+                enable = true;
+                package = null;
+                portalPackage = null;
+              };
+            }
+            {
+              home.username = "englishlayup";
+              home.homeDirectory = "/home/englishlayup";
             }
             ./home.nix
           ];
         };
-    in
-    {
-      homeConfigurations = {
-        "englishlayup" = mkHomeConfiguration {
-          username = "englishlayup";
-          homeDirectory = "/home/englishlayup";
-        };
-        "ductran" = mkHomeConfiguration {
-          username = "ductran";
-          homeDirectory = "/home/ductran";
+        "ductran" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            {
+              home.username = "ductran";
+              home.homeDirectory = "/home/ductran";
+            }
+            ./home.nix
+          ];
         };
       };
     };

@@ -4,8 +4,6 @@ let
 in
 {
   wayland.windowManager.hyprland = {
-    systemd.enable = false;
-    enable = true;
     settings = {
       # Monitors
       monitor = [
