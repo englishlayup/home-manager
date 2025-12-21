@@ -211,7 +211,7 @@ in
         "match:class com.$clipboard, float on"
         "match:class com.$clipboard, size 622 652"
         "match:class com.$clipboard, stay_focused on"
-        "match:class .*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*, float"
+        "match:class .*(NetworkManager|nm-applet|nm-connection-editor|blueman|pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*, float on"
         "match:class .*(NetworkManager|nm-applet|nm-connection-editor|blueman).*, size 500 600"
         "match:class .*(pavucontrol|pwvucontrol|xdg-desktop-portal-gtk).*, size 800 600"
         "match:class .*, suppress_event maximize"
