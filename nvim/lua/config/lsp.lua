@@ -1,16 +1,3 @@
-local virt_lines_ns = vim.api.nvim_create_namespace 'on_diagnostic_jump'
---- @param diagnostic? vim.Diagnostic
---- @param bufnr integer
-local function on_jump(diagnostic, bufnr)
-  if not diagnostic then return end
-  vim.diagnostic.show(
-    virt_lines_ns,
-    bufnr,
-    { diagnostic },
-    { virtual_lines = { current_line = true }, virtual_text = false }
-  )
-end
-
 vim.diagnostic.config {
   signs = {
     text = {
@@ -27,7 +14,6 @@ vim.diagnostic.config {
   float = {
     source = 'if_many',
   },
-  jump = { on_jumpd = on_jump },
 }
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float,
