@@ -1,3 +1,16 @@
+local virt_lines_ns = vim.api.nvim_create_namespace 'on_diagnostic_jump'
+--- @param diagnostic? vim.Diagnostic
+--- @param bufnr integer
+local function on_jump(diagnostic, bufnr)
+  if not diagnostic then return end
+  vim.diagnostic.show(
+    virt_lines_ns,
+    bufnr,
+    { diagnostic },
+    { virtual_lines = { current_line = true }, virtual_text = false }
+  )
+end
+
 vim.diagnostic.config {
   signs = {
     text = {
@@ -8,9 +21,13 @@ vim.diagnostic.config {
     },
   },
   severity_sort = true,
+  virtual_lines = {
+    current_line = true,
+  },
   float = {
     source = 'if_many',
   },
+  jump = { on_jumpd = on_jump },
 }
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float,
@@ -23,8 +40,11 @@ vim.keymap.set('n', '<leader>wq', function()
 end, { desc = 'Open [W]orkspace diagnostics in [Q]uickfix' })
 
 vim.keymap.set('n', 'gK', function()
-  local new_config = not vim.diagnostic.config().virtual_lines
-  vim.diagnostic.config { virtual_lines = new_config }
+  if not vim.diagnostic.config().virtual_lines then
+    vim.diagnostic.config { virtual_lines = { current_line = true } }
+  else
+    vim.diagnostic.config { virtual_lines = false }
+  end
 end, { desc = 'Toggle diagnostic virtual_lines' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
