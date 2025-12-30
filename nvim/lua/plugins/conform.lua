@@ -20,7 +20,7 @@ return {
       c = { 'clang-format' },
       nix = { 'nixfmt' },
       json = { 'jq' },
-      cmake = { 'cmake-format' },
+      cmake = { 'cmake_format' },
     },
     formatters = {
       jq = {
