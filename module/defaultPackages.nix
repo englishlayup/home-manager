@@ -52,6 +52,7 @@ let
     tailwindcss-language-server
     tree-sitter
     cmake-language-server
+    cmake-format
     ## some nvim plugins need a C compiler
     clang
     ## Package manager
