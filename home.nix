@@ -165,32 +165,6 @@ in
     ];
 
     file = {
-      # Randomize wallpaper
-      ".local/scripts/set-random-wallpaper.sh" = {
-        text = ''
-          #!/usr/bin/env bash
-
-          WALLPAPER_DIR="$HOME/Sync/Wallpapers_clean/"
-          CURRENT_WALL=$(hyprctl hyprpaper listloaded)
-          # Get the name of the focused monitor with hyprctl
-          FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
-          # Get a random wallpaper that is not the current one
-          WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
-
-          # Apply the selected wallpaper
-          hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"'';
-        executable = true;
-      };
-      # Toggle pip opacity
-      ".local/scripts/toggle-pip-opacity.sh" = {
-        text = ''
-          #!/usr/bin/env bash
-          # Find the PIP window address
-          PIP_WINDOW=$(hyprctl clients -j | jq -r '.[] | select(.title=="Picture in picture") | .address')
-          hyprctl dispatch setprop address:$PIP_WINDOW opaque toggle > /dev/null'';
-        executable = true;
-      };
-      # Long scripts
       ".local/scripts" = {
         source = ./scripts;
         recursive = true;
