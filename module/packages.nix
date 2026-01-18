@@ -50,6 +50,7 @@ with pkgs;
     tailwindcss-language-server
     tree-sitter
     cmake-language-server
+    cmake-format
     # Compilers/runtimes
     clang
     uv
