@@ -1,0 +1,6 @@
+font-family = MesloLGS Nerd Font
+font-size = 12
+mouse-hide-while-typing = true
+theme = dark:Gruvbox Dark,light:Gruvbox Light
+background-opacity = 0.9
+shell-integration = fish

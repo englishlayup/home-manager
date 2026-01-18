@@ -10,17 +10,6 @@ let
   };
 in
 {
-  imports = [
-    ./module/dunst.nix
-    ./module/fish.nix
-    ./module/hypridle.nix
-    ./module/hyprland.nix
-    ./module/hyprlock.nix
-    ./module/hyprpaper.nix
-    ./module/waybar.nix
-    ./module/wofi.nix
-    ./module/bundle-gui.nix
-  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -43,6 +32,44 @@ in
       };
       "tmux" = {
         source = ./tmux;
+        recursive = true;
+      };
+      # Fish shell
+      "fish/functions" = {
+        source = ./fish/functions;
+        recursive = true;
+      };
+      "fish/conf.d" = {
+        source = ./fish/conf.d;
+        recursive = true;
+      };
+      "fish/completions" = {
+        source = ./fish/completions;
+        recursive = true;
+      };
+      # Hyprland ecosystem
+      "hypr" = {
+        source = ./hypr;
+        recursive = true;
+      };
+      # Waybar
+      "waybar" = {
+        source = ./waybar;
+        recursive = true;
+      };
+      # Dunst
+      "dunst" = {
+        source = ./dunst;
+        recursive = true;
+      };
+      # Wofi
+      "wofi" = {
+        source = ./wofi;
+        recursive = true;
+      };
+      # Ghostty
+      "ghostty" = {
+        source = ./ghostty;
         recursive = true;
       };
       # For `nix-env`, `nix-build`, `nix-shell` or any other Nix command
@@ -218,9 +245,18 @@ in
   };
 
   services.syncthing.enable = true;
+  services.dunst.enable = true;
+  services.hyprpaper.enable = true;
+  services.hypridle.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.fish.enable = true;
+  programs.waybar.enable = true;
+  programs.waybar.systemd.enable = true;
+  programs.hyprlock.enable = true;
+  programs.wofi.enable = true;
+  programs.ghostty.enable = true;
 
   programs.zoxide = {
     enable = true;
