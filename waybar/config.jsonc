@@ -3,8 +3,13 @@
   "position": "top",
   "height": 37,
   "spacing": 4,
-  "modules-left": ["hyprland/workspaces", "hyprland/window"],
-  "modules-center": ["clock"],
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
   "modules-right": [
     "pulseaudio#volume",
     "pulseaudio#mic",
@@ -19,11 +24,11 @@
     "all-outputs": true,
     "format": "{icon}",
     "format-icons": {
-      "1": " ",
-      "2": " ",
-      "3": " ",
-      "4": " ",
-      "5": " ",
+      "1": " ",
+      "2": " ",
+      "3": " ",
+      "4": " ",
+      "5": " ",
       "6": "六",
       "7": "七",
       "8": "八",
@@ -46,16 +51,16 @@
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
-      "activated": " ",
-      "deactivated": " "
+      "activated": " ",
+      "deactivated": " "
     }
   },
   "cpu": {
-    "format": "{usage}% ",
+    "format": "{usage}% ",
     "tooltip": false
   },
   "memory": {
-    "format": "{}% "
+    "format": "{}% "
   },
   "clock": {
     "format": "{:%H:%M}",
@@ -78,11 +83,25 @@
   "temperature": {
     "critical-threshold": 80,
     "format": "{temperatureC}°C {icon}",
-    "format-icons": ["", "", ""]
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
   },
   "backlight": {
     "format": "{percent}% {icon}",
-    "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    "format-icons": [
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " "
+    ]
   },
   "battery": {
     "states": {
@@ -91,22 +110,32 @@
     },
     "format": "{capacity}% {icon}",
     "format-charging": "{capacity}% 🗲",
-    "format-plugged": "{capacity}%  ",
+    "format-plugged": "{capacity}% ",
     "format-alt": "{time} {icon}",
-    "format-icons": [" ", " ", " ", " ", " "]
+    "format-icons": [
+      " ",
+      " ",
+      " ",
+      " ",
+      " "
+    ]
   },
   "pulseaudio#volume": {
     "format": "{volume}% {icon}",
-    "format-bluetooth": "{volume}% {icon}",
-    "format-bluetooth-muted": " {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": "  {icon}",
     "format-muted": " ",
-    "format-icons": ["", " ", " "],
+    "format-icons": [
+      " ",
+      " ",
+      " "
+    ],
     "on-click": "pavucontrol"
   },
   "pulseaudio#mic": {
     "format": "{format_source}",
-    "format-source": "{volume}% ",
-    "format-source-muted": " ",
+    "format-source": "{volume}% ",
+    "format-source-muted": " ",
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
   }
 }
