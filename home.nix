@@ -188,30 +188,30 @@ in
   };
 
   systemd = {
-    user = {
-      services.set-random-wallpaper = {
-        Unit = {
-          Description = "Set a random wallpaper";
-        };
-        Service = {
-          ExecStart = "${config.home.homeDirectory}/.local/scripts/set-random-wallpaper.sh";
-          Type = "oneshot";
-        };
-      };
-      timers.set-random-wallpaper = {
-        Unit = {
-          Description = "Change wallpaper every 10 minutes";
-        };
-        Timer = {
-          OnBootSec = "1min";
-          OnUnitActiveSec = "10min";
-          Persistent = true;
-        };
-        Install = {
-          WantedBy = [ "default.target" ];
-        };
-      };
-    };
+    # user = {
+    #   services.set-random-wallpaper = {
+    #     Unit = {
+    #       Description = "Set a random wallpaper";
+    #     };
+    #     Service = {
+    #       ExecStart = "${config.home.homeDirectory}/.local/scripts/set-random-wallpaper.sh";
+    #       Type = "oneshot";
+    #     };
+    #   };
+    #   timers.set-random-wallpaper = {
+    #     Unit = {
+    #       Description = "Change wallpaper every 10 minutes";
+    #     };
+    #     Timer = {
+    #       OnBootSec = "1min";
+    #       OnUnitActiveSec = "10min";
+    #       Persistent = true;
+    #     };
+    #     Install = {
+    #       WantedBy = [ "default.target" ];
+    #     };
+    #   };
+    # };
   };
 
   services.syncthing.enable = true;
@@ -223,7 +223,6 @@ in
   programs.home-manager.enable = true;
   programs.fish.enable = true;
   programs.waybar.enable = true;
-  programs.waybar.systemd.enable = true;
   programs.hyprlock.enable = true;
   programs.wofi.enable = true;
   programs.ghostty.enable = true;
