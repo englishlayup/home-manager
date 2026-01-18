@@ -41,7 +41,7 @@ with pkgs;
     buildifier
     shellcheck
     delve
-    nixfmt-rfc-style
+    nixfmt
     starpls
     nil
     htmx-lsp
