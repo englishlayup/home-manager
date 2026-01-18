@@ -35,16 +35,8 @@ in
         recursive = true;
       };
       # Fish shell
-      "fish/functions" = {
-        source = ./fish/functions;
-        recursive = true;
-      };
-      "fish/conf.d" = {
-        source = ./fish/conf.d;
-        recursive = true;
-      };
-      "fish/completions" = {
-        source = ./fish/completions;
+      "fish" = {
+        source = ./fish;
         recursive = true;
       };
       # Hyprland ecosystem
