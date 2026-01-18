@@ -93,8 +93,8 @@ vim.keymap.set('n', '<C-w>>', '<cmd>vertical resize +5<CR>',
 vim.keymap.set('n', '<C-w><', '<cmd>vertical resize -5<CR>',
   { desc = 'Decrease current window width by 5' })
 
--- Start terminal in insert mode
-vim.cmd [[autocmd TermOpen * startinsert]]
+-- Start terminal in insert mode and disable line numbers
+vim.cmd [[autocmd TermOpen * startinsert | setlocal nonumber norelativenumber]]
 
 vim.api.nvim_create_user_command('PythonRepl', function()
   vim.cmd.term 'python3'
