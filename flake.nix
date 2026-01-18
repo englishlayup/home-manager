@@ -37,7 +37,8 @@
               home.homeDirectory = homeDirectory;
             }
             ./home.nix
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
         };
     in
     {
@@ -66,6 +67,14 @@
         # WSL/secondary machine - no desktop
         "ductran" = mkHome {
           username = "ductran";
+          packageCategories = [
+            "cli"
+            "dev"
+          ];
+        };
+
+        "englishlayup@home-server" = mkHome {
+          username = "englishlayup";
           packageCategories = [
             "cli"
             "dev"
