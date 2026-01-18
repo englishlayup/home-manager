@@ -17,11 +17,42 @@
       home-manager,
       ...
     }:
+    let
+      # Helper to create a home configuration
+      mkHome =
+        {
+          system ? "x86_64-linux",
+          username,
+          homeDirectory ? "/home/${username}",
+          # Package categories: "cli", "dev", "desktop", "personal", "productivity", or "all"
+          packageCategories ? [ "all" ],
+          extraModules ? [ ],
+        }:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = { inherit packageCategories; };
+          modules = [
+            {
+              home.username = username;
+              home.homeDirectory = homeDirectory;
+            }
+            ./home.nix
+          ] ++ extraModules;
+        };
+    in
     {
       homeConfigurations = {
-        "englishlayup@framework-13" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
+        # Personal laptop - full setup with desktop and personal apps
+        "englishlayup@framework-13" = mkHome {
+          username = "englishlayup";
+          packageCategories = [
+            "cli"
+            "dev"
+            "desktop"
+            "personal"
+            "productivity"
+          ];
+          extraModules = [
             {
               wayland.windowManager.hyprland = {
                 enable = true;
@@ -29,23 +60,32 @@
                 portalPackage = null;
               };
             }
-            {
-              home.username = "englishlayup";
-              home.homeDirectory = "/home/englishlayup";
-            }
-            ./home.nix
           ];
         };
-        "ductran" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            {
-              home.username = "ductran";
-              home.homeDirectory = "/home/ductran";
-            }
-            ./home.nix
+
+        # WSL/secondary machine - no desktop
+        "ductran" = mkHome {
+          username = "ductran";
+          packageCategories = [
+            "cli"
+            "dev"
           ];
         };
+
+        # Example: Work laptop - desktop but no personal apps
+        # "user@work-laptop" = mkHome {
+        #   username = "user";
+        #   packageCategories = [ "cli" "dev" "desktop" "productivity" ];
+        #   extraModules = [
+        #     { wayland.windowManager.hyprland.enable = true; }
+        #   ];
+        # };
+
+        # Example: Server - minimal CLI only
+        # "user@server" = mkHome {
+        #   username = "user";
+        #   packageCategories = [ "cli" ];
+        # };
       };
     };
 }
