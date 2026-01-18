@@ -2,11 +2,15 @@
   config,
   pkgs,
   lib,
+  # Package categories to install. Override per-host in flake.nix
+  # Options: "cli", "dev", "desktop", "personal", "productivity", or "all"
+  packageCategories ? [ "all" ],
   ...
 }:
 let
   myPackages = import ./module/defaultPackages.nix {
     inherit pkgs lib;
+    categories = packageCategories;
   };
 in
 {
