@@ -104,11 +104,6 @@ end, {
 
 vim.keymap.set('n', '<leader>py', '<cmd>PythonRepl<CR>', { desc = 'Start [Py]thon REPL' })
 
-vim.keymap.set('n', '<leader>t', function()
-    vim.cmd.term()
-  end,
-  { desc = 'Start [T]erminal' })
-
 vim.keymap.set('n', 'yd', function()
     -- get 0-based current line
     local row = vim.api.nvim_win_get_cursor(0)[1] - 1
@@ -149,9 +144,27 @@ local qf_shell_cmd = function(cmd)
   vim.cmd 'copen'
 end
 
-vim.api.nvim_create_user_command('QfShell', function()
+vim.api.nvim_create_user_command('ShellCmdToQf', function()
   local cmd = vim.fn.input 'Command: '
   qf_shell_cmd(cmd)
 end, {})
 
 vim.keymap.set('n', '<leader>c', '1z=e', { desc = '[C]orrect Spelling' })
+
+-- Jump to most recent terminal buffer, or create one at bottom 30%
+vim.keymap.set('n', '<leader>t', function()
+  local bufs = vim.api.nvim_list_bufs()
+  -- Sort by last used (most recent first)
+  table.sort(bufs, function(a, b)
+    return vim.fn.getbufinfo(a)[1].lastused > vim.fn.getbufinfo(b)[1].lastused
+  end)
+  for _, buf in ipairs(bufs) do
+    if vim.bo[buf].buftype == 'terminal' then
+      vim.api.nvim_set_current_buf(buf)
+      return
+    end
+  end
+  -- No terminal exists, create one at bottom 30%
+  local height = math.floor(vim.o.lines * 0.3)
+  vim.cmd('botright ' .. height .. 'split | term')
+end, { desc = '[T]erminal: jump to recent or create' })
