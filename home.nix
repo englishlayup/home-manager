@@ -216,8 +216,6 @@ in
 
   services.syncthing.enable = true;
   services.dunst.enable = true;
-  services.hyprpaper.enable = true;
-  services.hypridle.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
