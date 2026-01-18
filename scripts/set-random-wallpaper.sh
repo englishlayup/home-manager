@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
 WALLPAPER_DIR="$HOME/Sync/Wallpapers_clean/"
-CURRENT_WALL=$(hyprctl hyprpaper listloaded)
+CURRENT="/tmp/wallpaper/current"
+mkdir -p "$(dirname $CURRENT)"
+if [ -f $CURRENT ]; then
+    CURRENT_WALL=$(cat "$CURRENT")
+else
+    CURRENT_WALL=""
+fi
 # Get the name of the focused monitor with hyprctl
 FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
 # Get a random wallpaper that is not the current one
 WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
 
 # Apply the selected wallpaper
-hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"
+hyprctl hyprpaper wallpaper "$FOCUSED_MONITOR","$WALLPAPER"
+
+echo "$WALLPAPER" > $CURRENT
