@@ -89,6 +89,15 @@ in
     style.name = "adwaita-dark";
   };
 
+  # dconf settings for color scheme preference
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      gtk-theme = "Gruvbox-Dark";
+      icon-theme = "Gruvbox-Plus-Dark";
+      color-scheme = "prefer-dark";
+    };
+  };
+
   # Services
   services.syncthing.enable = true;
   services.dunst.enable = true;
