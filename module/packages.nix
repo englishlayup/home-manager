@@ -60,6 +60,8 @@ with pkgs;
     cmake
     ninja
     gnumake
+    # Database
+    sqlite
   ];
 
   desktop = [
