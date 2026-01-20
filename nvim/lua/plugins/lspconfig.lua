@@ -31,7 +31,9 @@ return {
         nil_ls = {},
         templ = {},
         htmx = {},
-        html = {},
+        html = {
+          filetypes = { 'html' },
+        },
         tailwindcss = {
           settings = {
             tailwindCSS = {
