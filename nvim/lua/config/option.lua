@@ -54,6 +54,9 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Return to last edit position when opening files
 vim.cmd [[autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
 
+-- Treat Jenkinsfile as Groovy
+vim.filetype.add { pattern = { ['Jenkinsfile.*'] = 'groovy' } }
+
 vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open parent directory' })
 
 -- Remap for dealing with word wrap
