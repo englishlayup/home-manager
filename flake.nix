@@ -9,13 +9,22 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs =
+    { nixpkgs, home-manager, ... }:
     let
-      mkHome = { system ? "x86_64-linux", username, hostFile }:
+      mkHome =
+        {
+          system ? "x86_64-linux",
+          username,
+          hostFile,
+        }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           modules = [
-            { home.username = username; home.homeDirectory = "/home/${username}"; }
+            {
+              home.username = username;
+              home.homeDirectory = "/home/${username}";
+            }
             hostFile
           ];
         };
@@ -30,6 +39,11 @@
         "englishlayup@home-server" = mkHome {
           username = "englishlayup";
           hostFile = ./hosts/home-server.nix;
+        };
+
+        "englishlayup@DESKTOP-EV2FO3F" = mkHome {
+          username = "englishlayup";
+          hostFile = ./hosts/wsl.nix;
         };
 
         "ductran" = mkHome {
