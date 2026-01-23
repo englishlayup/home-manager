@@ -48,6 +48,7 @@ with pkgs;
     vscode-langservers-extracted
     templ
     tailwindcss-language-server
+    tailwindcss_4
     tree-sitter
     cmake-language-server
     cmake-format
