@@ -164,7 +164,6 @@ vim.keymap.set('n', '<leader>t', function()
       return
     end
   end
-  -- No terminal exists, create one at bottom 30%
-  local height = math.floor(vim.o.lines * 0.3)
-  vim.cmd('botright ' .. height .. 'split | term')
+  -- No terminal exists, create one in a vertical split
+  vim.cmd('vsplit | term')
 end, { desc = '[T]erminal: jump to recent or create' })
