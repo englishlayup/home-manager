@@ -15,6 +15,10 @@ in
     QT_STYLE_OVERRIDE = "adwaita-dark";
     NIXOS_OZONE_WL = "1";
     TERMINAL = "ghostty";
+    # Fcitx5 input method
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
   };
 
   # Desktop configs
@@ -101,6 +105,12 @@ in
   # Services
   services.syncthing.enable = true;
   services.dunst.enable = true;
+
+  # Vietnamese input method
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addons = with pkgs; [ fcitx5-bamboo ];
+  };
 
   # Desktop programs
   programs.waybar.enable = true;
