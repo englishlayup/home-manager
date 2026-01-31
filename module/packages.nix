@@ -28,6 +28,11 @@ with pkgs;
     translate-shell
     imagemagick
     ffmpeg
+    lshw
+    hwinfo
+    inxi
+    lm_sensors
+    smartmontools
   ];
 
   dev = [
