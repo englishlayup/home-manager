@@ -89,7 +89,7 @@ with pkgs;
   personal = [
     anki-bin
     musescore
-    mpv-unwrapped
+    mpv
   ];
 
   productivity = [
