@@ -33,6 +33,7 @@ with pkgs;
     inxi
     lm_sensors
     smartmontools
+    usbutils
   ];
 
   dev = [
