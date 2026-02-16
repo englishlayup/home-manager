@@ -46,7 +46,6 @@ with pkgs;
     bash-language-server
     buildifier
     shellcheck
-    delve
     nixfmt
     starpls
     nil
@@ -69,6 +68,9 @@ with pkgs;
     gnumake
     # Database
     sqlite
+    # Debugger
+    lldb
+    delve
   ];
 
   desktop = [

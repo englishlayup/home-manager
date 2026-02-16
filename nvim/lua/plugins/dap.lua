@@ -15,6 +15,42 @@ return {
       require 'dapui'.setup()
       require 'dap-go'.setup()
       require 'dap-python'.setup 'uv'
+      require 'nvim-dap-virtual-text'.setup()
+
+      -- C/C++ debugger (lldb)
+      dap.adapters.lldb = {
+        type = 'executable',
+        command = 'lldb-dap',
+        name = 'lldb',
+      }
+      dap.configurations.c = {
+        {
+          name = 'Launch',
+          type = 'lldb',
+          request = 'launch',
+          program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          end,
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+          args = {},
+        },
+        {
+          name = 'Launch (with args)',
+          type = 'lldb',
+          request = 'launch',
+          program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          end,
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+          args = function()
+            local input = vim.fn.input('Arguments: ')
+            return vim.split(input, ' ', { trimempty = true })
+          end,
+        },
+      }
+      dap.configurations.cpp = dap.configurations.c
       vim.keymap.set('n', '<leader>db', function() dap.toggle_breakpoint() end, { desc = 'Dap: Toggle Breakpoint (b)' })
       vim.keymap.set('n', '<leader>dr', function() dap.continue() end, { desc = 'Dap: Run/Start (r)' })
       vim.keymap.set('n', '<leader>dc', function() dap.continue() end, { desc = 'Dap: Continue (c)' })
