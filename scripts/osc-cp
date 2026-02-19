@@ -16,4 +16,4 @@ if [[ "$supported" == no ]]; then
     echo "osc-copy: terminal may not support OSC 52 ($TERM)" >&2
 fi
 
-echo -ne "\033]52;c;$(cat | base64 | tr -d '\n')\a"
+echo -ne "\033]52;c;$(cat | base64)\a"

@@ -13,8 +13,7 @@ _cp() {
     elif command -v clip.exe >/dev/null 2>&1; then
         clip.exe
     else
-        echo "No clipboard utility found (xclip, xsel, wl-copy, pbcopy, clip.exe)" >&2
-        return 1
+        osc-copy
     fi
 }
 
