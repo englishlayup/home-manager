@@ -96,7 +96,6 @@ with pkgs;
   ];
 
   productivity = [
-    obsidian
     libreoffice-qt6-fresh
     zathura
     xournalpp
