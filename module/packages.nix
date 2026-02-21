@@ -63,9 +63,9 @@ with pkgs;
     fnm
     go
     # Build tools
+    gnumake
     cmake
     ninja
-    gnumake
     # Database
     sqlite
     # Debugger
