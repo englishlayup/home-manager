@@ -63,8 +63,8 @@ with pkgs;
     fnm
     go
     # Build tools
-    gnumake
     cmake
+    gnumake
     ninja
     # Database
     sqlite
