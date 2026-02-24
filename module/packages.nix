@@ -34,6 +34,7 @@ with pkgs;
     lm_sensors
     smartmontools
     usbutils
+    lazygit
   ];
 
   dev = [

@@ -107,6 +107,13 @@ end, {
 
 vim.keymap.set('n', '<leader>py', '<cmd>PythonRepl<CR>', { desc = 'Start [Py]thon REPL' })
 
+vim.keymap.set('n', '<leader>gg', function()
+  vim.cmd 'tabnew'
+  vim.fn.termopen('lazygit', {
+    on_exit = function() vim.cmd 'tabc' end,
+  })
+end, { desc = 'Open Lazy[G]it in new tab' })
+
 vim.keymap.set('n', 'yd', function()
     -- get 0-based current line
     local row = vim.api.nvim_win_get_cursor(0)[1] - 1
