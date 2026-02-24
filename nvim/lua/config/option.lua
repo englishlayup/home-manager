@@ -99,6 +99,14 @@ vim.keymap.set('n', '<C-w><', '<cmd>vertical resize -5<CR>',
 -- Start terminal in insert mode and disable line numbers
 vim.cmd [[autocmd TermOpen * startinsert | setlocal nonumber norelativenumber]]
 
+-- Auto-enter terminal mode when switching to a terminal buffer
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = 'term://*',
+  callback = function()
+    vim.cmd 'startinsert'
+  end,
+})
+
 vim.api.nvim_create_user_command('PythonRepl', function()
   vim.cmd.term 'python3'
 end, {
