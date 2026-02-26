@@ -35,6 +35,7 @@ with pkgs;
     smartmontools
     usbutils
     lazygit
+    zsh
   ];
 
   dev = [
