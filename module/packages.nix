@@ -19,7 +19,6 @@ with pkgs;
     unzip
     zip
     htop
-    neofetch
     fd
     ripgrep
     fzf
