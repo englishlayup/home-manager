@@ -45,10 +45,19 @@ in
   xdg = {
     enable = true;
     configFile = {
-      "nvim" = { source = ./nvim; recursive = true; };
-      "tmux" = { source = ./tmux; recursive = true; };
-      "fish" = { source = ./fish; recursive = true; };
-      "nixpkgs/config.nix".text = ''{ allowUnfree = true; }'';
+      "nvim" = {
+        source = ./nvim;
+        recursive = true;
+      };
+      "tmux" = {
+        source = ./tmux;
+        recursive = true;
+      };
+      "fish" = {
+        source = ./fish;
+        recursive = true;
+      };
+      "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
     };
   };
 
@@ -91,7 +100,6 @@ in
   programs.btop = {
     enable = true;
     settings = {
-      color_theme = "gruvbox_dark_v2";
       theme_background = false;
       vim_keys = true;
     };

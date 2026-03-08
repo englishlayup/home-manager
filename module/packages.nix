@@ -4,7 +4,6 @@ with pkgs;
 {
   cli = [
     tmux
-    yazi
     hyperfine
     delta
     eza
@@ -75,19 +74,6 @@ with pkgs;
   ];
 
   desktop = [
-    wl-clipboard
-    # Theme
-    nwg-look
-    gruvbox-gtk-theme
-    gruvbox-dark-icons-gtk
-    libsForQt5.qt5ct
-    qt6Packages.qt6ct
-    bibata-cursors
-    # Screenshot
-    slurp
-    grim
-    hyprshot
-    hyprpicker
   ];
 
   personal = [
