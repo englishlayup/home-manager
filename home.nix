@@ -69,11 +69,6 @@ in
     enableFishIntegration = true;
   };
 
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
-  };
-
   programs.eza = {
     enable = true;
     enableFishIntegration = true;
