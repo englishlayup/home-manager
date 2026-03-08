@@ -25,7 +25,6 @@ in
 
   # Services
   services.syncthing.enable = true;
-  services.dunst.enable = true;
 
   # Vietnamese input method
   i18n.inputMethod = {
