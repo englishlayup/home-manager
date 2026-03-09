@@ -22,6 +22,7 @@ in
   ];
 
   home.file = {
+    ".zshenv".source = ./zsh/.zshenv;
     ".local/scripts" = {
       source = ./scripts;
       recursive = true;
@@ -58,6 +59,7 @@ in
         recursive = true;
       };
       "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
+      "zsh/.zshrc".source = ./zsh/.zshrc;
     };
   };
 
