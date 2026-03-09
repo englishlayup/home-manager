@@ -84,7 +84,7 @@ with pkgs;
 
   productivity = [
     libreoffice-qt6-fresh
-    zathura
+    sioyek
     xournalpp
     gimp3
   ];
