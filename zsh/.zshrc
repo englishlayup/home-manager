@@ -20,17 +20,6 @@ export DATE=$(date "+%A, %B %e  %_I:%M%P")
 
 export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='bat -p --color=always {}'"
 export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
-export MANPAGER="less -R --use-color -Dd+r -Du+b" # colored man pages
-
-# colored less + termcap vars
-export LESS="-R"
-export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
-export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
-export LESS_TERMCAP_me="$(printf '%b' '[0m')"
-export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
-export LESS_TERMCAP_se="$(printf '%b' '[0m')"
-export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
-export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 
 # source global shell alias & variables files
 [ -f "$XDG_CONFIG_HOME/shell/alias" ] && source "$XDG_CONFIG_HOME/shell/alias"
@@ -40,7 +29,6 @@ export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 zmodload zsh/complist
 autoload -U compinit && compinit
 autoload -U colors && colors
-
 
 # cmp opts
 zstyle ':completion:*' menu select # tab opens cmp menu
