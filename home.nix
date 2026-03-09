@@ -2,6 +2,12 @@
 { pkgs, ... }:
 let
   packages = import ./module/packages.nix { inherit pkgs; };
+  zsh-syntax-highlighting = pkgs.fetchFromGitHub {
+    owner = "zsh-users";
+    repo = "zsh-syntax-highlighting";
+    rev = "master";
+    sha256 = "sha256-VMne38IQwqB4jwGUI2f3eEiSkT2ww7+G5ch7w+65GT0=";
+  };
 in
 {
   home.stateVersion = "25.05";
@@ -60,6 +66,12 @@ in
       };
       "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
       "zsh/.zshrc".source = ./zsh/.zshrc;
+    };
+    dataFile = {
+      "zsh/plugins/zsh-syntax-highlighting" = {
+        source = zsh-syntax-highlighting;
+        recursive = true;
+      };
     };
   };
 
