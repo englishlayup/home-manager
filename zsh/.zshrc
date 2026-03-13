@@ -71,6 +71,22 @@ bindkey "^J" history-search-forward
 bindkey "^K" history-search-backward
 bindkey '^R' fzf-history-widget
 
+# Terminal Integration
+preexec() { print -Pn "\e]0;$1\a" }
+precmd() {
+  local exit_code=$?
+
+  # OSC 133 - shell integration
+  print -Pn "\e]133;D;${exit_code}\a"
+  print -Pn "\e]133;A\a"
+
+  # OSC 7 - report cwd
+  print -Pn "\e]7;file://${HOST}${PWD}\a"
+
+  # OSC 0 - window title
+  print -Pn "\e]0;zsh\a"
+}
+
 # set up prompt
 NEWLINE=$'\n'
 PROMPT="${NEWLINE}%K{#2E3440}%F{#E5E9F0}$(date +%_I:%M%P) %K{#3b4252}%F{#ECEFF4} %n %K{#4c566a} %~ %f%k ❯ " # nord theme

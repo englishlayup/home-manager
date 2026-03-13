@@ -96,24 +96,6 @@ vim.keymap.set('n', '<C-w>>', '<cmd>vertical resize +5<CR>',
 vim.keymap.set('n', '<C-w><', '<cmd>vertical resize -5<CR>',
   { desc = 'Decrease current window width by 5' })
 
--- Start terminal in insert mode and disable line numbers
-vim.cmd [[autocmd TermOpen * startinsert | setlocal nonumber norelativenumber]]
-
-vim.api.nvim_create_user_command('PythonRepl', function()
-  vim.cmd.term 'python3'
-end, {
-  desc = 'Launch a Python repl',
-})
-
-vim.keymap.set('n', '<leader>py', '<cmd>PythonRepl<CR>', { desc = 'Start [Py]thon REPL' })
-
-vim.keymap.set('n', '<leader>gg', function()
-  vim.cmd 'tabnew'
-  vim.fn.termopen('lazygit', {
-    on_exit = function() vim.cmd 'tabc' end,
-  })
-end, { desc = 'Open Lazy[G]it in new tab' })
-
 vim.keymap.set('n', 'yd', function()
     -- get 0-based current line
     local row = vim.api.nvim_win_get_cursor(0)[1] - 1
@@ -161,19 +143,9 @@ end, {})
 
 vim.keymap.set('n', '<leader>c', '1z=e', { desc = '[C]orrect Spelling' })
 
--- Jump to most recent terminal buffer, or create one at bottom 30%
-vim.keymap.set('n', '<leader>t', function()
-  local bufs = vim.api.nvim_list_bufs()
-  -- Sort by last used (most recent first)
-  table.sort(bufs, function(a, b)
-    return vim.fn.getbufinfo(a)[1].lastused > vim.fn.getbufinfo(b)[1].lastused
-  end)
-  for _, buf in ipairs(bufs) do
-    if vim.bo[buf].buftype == 'terminal' then
-      vim.api.nvim_set_current_buf(buf)
-      return
-    end
-  end
-  -- No terminal exists, create one in a vertical split
-  vim.cmd('vsplit | term')
-end, { desc = '[T]erminal: jump to recent or create' })
+vim.keymap.set('n', '<leader>vt', function()
+  local buf = vim.api.nvim_get_current_buf()
+  vim.cmd 'tabfirst'
+  vim.cmd 'vsplit'
+  vim.api.nvim_set_current_buf(buf)
+end, { desc = 'View buffer in vertical split in tab 1' })
