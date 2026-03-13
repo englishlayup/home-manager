@@ -1,5 +1,5 @@
 # Shared base configuration - CLI tools, editor, shell
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   packages = import ./module/packages.nix { inherit pkgs; };
   zsh-syntax-highlighting = pkgs.fetchFromGitHub {
@@ -28,7 +28,6 @@ in
   ];
 
   home.file = {
-    ".zshenv".source = ./zsh/.zshenv;
     ".local/scripts" = {
       source = ./scripts;
       recursive = true;
@@ -65,7 +64,6 @@ in
         recursive = true;
       };
       "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
-      "zsh/.zshrc".source = ./zsh/.zshrc;
     };
     dataFile = {
       "zsh/plugins/zsh-syntax-highlighting" = {
@@ -77,7 +75,11 @@ in
 
   programs.home-manager.enable = true;
   programs.fish.enable = true;
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
+    initContent = builtins.readFile ./zsh/.zshrc;
+  };
 
   programs.zoxide = {
     enable = true;
