@@ -19,5 +19,5 @@ end, { desc = 'Open Lazy[G]it in new tab' })
 
 
 vim.keymap.set('n', '<leader>t', function()
-  vim.cmd 'tabn | term'
+  vim.cmd 'tabnew | term'
 end, { desc = '[T]erminal: create new Terminal tab' })
