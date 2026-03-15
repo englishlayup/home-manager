@@ -74,6 +74,7 @@ with pkgs;
   ];
 
   desktop = [
+    rustdesk-flutter
   ];
 
   personal = [
