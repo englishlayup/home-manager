@@ -145,6 +145,7 @@ vim.keymap.set('n', '<leader>c', '1z=e', { desc = '[C]orrect Spelling' })
 
 vim.keymap.set('n', '<leader>vt', function()
   local buf = vim.api.nvim_get_current_buf()
+  vim.cmd 'tabclose'
   vim.cmd 'tabfirst'
   vim.cmd 'vsplit'
   vim.api.nvim_set_current_buf(buf)
