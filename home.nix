@@ -63,6 +63,9 @@ in
         source = ./fish;
         recursive = true;
       };
+      "starship.toml" = {
+        source = ./starship.toml;
+      };
       "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
     };
     dataFile = {
