@@ -81,6 +81,10 @@ in
     initContent = builtins.readFile ./zsh/.zshrc;
   };
 
+  programs.starship = {
+    enable = true;
+  };
+
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
