@@ -90,7 +90,7 @@ precmd() {
 # set up prompt
 NEWLINE=$'\n'
 eval "$(starship init zsh)"
-echo -e "${NEWLINE}\x1b[38;5;137m\x1b[48;5;0m it's$(print -P '%D{%_I:%M%P}\n') \x1b[38;5;180m\x1b[48;5;0m $(uptime -p | cut -c 4-) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # current
+echo -e "${NEWLINE}\x1b[38;5;137m\x1b[48;5;0m it's$(print -P '%D{%_I:%M%P}\n') \x1b[38;5;180m\x1b[48;5;0m $(uptime) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # current
 
 # syntax highlighting
 # requires zsh-syntax-highlighting package
