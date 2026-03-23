@@ -19,7 +19,6 @@ return {
     opts = {},
     init = function()
       vim.cmd [[colorscheme gruvbox]]
-      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
     end
   },
   -- "gc" to comment visual regions/lines
