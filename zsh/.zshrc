@@ -92,26 +92,40 @@ send_osc_precmd() {
 add-zsh-hook preexec send_osc_preexec
 add-zsh-hook precmd send_osc_precmd
 
-# set up prompt
-NEWLINE=$'\n'
+setopt PROMPT_SUBST # enable parameter expansion, command substitution and arithmetic expansion in prompts
 
-# Check for staged/unstaged changes
+# Git info setup with staged/unstaged indicators
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' unstagedstr '%F{#fb4934}*%f'
-zstyle ':vcs_info:git:*' formats ' %F{#fabd2f}(%b%u)%f'
+zstyle ':vcs_info:git:*' stagedstr '%F{yellow}+%f'
+zstyle ':vcs_info:git:*' unstagedstr '%F{blue}*%f'
+zstyle ':vcs_info:git:*' formats ' (%%B%F{magenta}%b%f%%b%c%u)'
+zstyle ':vcs_info:git:*' actionformats ' (%%B%F{magenta}%b%f%%b|%F{red}%a%f%c%u)'
 
-# 3. Use the hook instead of overwriting precmd
 add-zsh-hook precmd vcs_info
 
-# 4. Enable variable expansion in the prompt
-setopt PROMPT_SUBST
+# Prompt helper functions
+prompt_ssh() {
+  [[ -n "$SSH_CLIENT" ]] && print -n "%F{cyan}%m%f "
+}
 
-# 5. Define the Prompt
-# %~           = Current directory in Gruvbox Aqua (#8ec07c)
-# vcs_info...  = The Git branch in Gruvbox Yellow (#fabd2f)
-# ❯            = The prompt symbol in Gruvbox Green (#b8bb26)
-PROMPT='%(?..%F{#fb4934}%?%f )%F{#8ec07c}%~%f${vcs_info_msg_0_}${NEWLINE}%F{#b8bb26}❯%f '
-echo -e "${NEWLINE}\x1b[38;5;137m\x1b[48;5;0m it's $(print -P '%D{%_I:%M%P}\n') \x1b[38;5;180m\x1b[48;5;0m $(uptime) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # current
+prompt_nix() {
+  [[ -n "$IN_NIX_SHELL" ]] && print -n "%F{cyan}󱄅 %f"
+}
+
+prompt_jobs() {
+  local job_count=%j
+  (( ${(%)job_count} > 0 )) && print -n "%F{#FF9500}⚙ ${(%)job_count} %f"
+}
+
+PROMPT='%(?..[%F{red}%?%f] )'                      # Exit status of last command if non-zero
+PROMPT+='$(prompt_ssh)'                            # Hostname, only if in SSH session
+PROMPT+='$(prompt_nix)'                            # Nix-shell indicator
+PROMPT+='%F{#8ec07c}%~%f'                          # Current directory
+PROMPT+='${vcs_info_msg_0_} '                      # Git info
+PROMPT+='$(prompt_jobs)'                           # Background jobs count
+PROMPT+=$'\n'                                      # Newline
+PROMPT+='%(!.#.$) '                                # $ or # suffix
+echo -e "\n\x1b[38;5;137m\x1b[48;5;0m it's $(print -P '%D{%_I:%M%P}\n') \x1b[38;5;180m\x1b[48;5;0m $(uptime) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # current
 
 # syntax highlighting
 # requires zsh-syntax-highlighting package
