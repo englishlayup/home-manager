@@ -1,42 +1,56 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+# Shared base configuration - CLI tools, editor, shell
+{ pkgs, config, ... }:
 let
-  myPackages = import ./module/defaultPackages.nix {
-    inherit pkgs lib;
+  packages = import ./module/packages.nix { inherit pkgs; };
+  zsh-syntax-highlighting = pkgs.fetchFromGitHub {
+    owner = "zsh-users";
+    repo = "zsh-syntax-highlighting";
+    rev = "master";
+    sha256 = "sha256-VMne38IQwqB4jwGUI2f3eEiSkT2ww7+G5ch7w+65GT0=";
   };
 in
 {
-  imports = [
-    ./module/dunst.nix
-    ./module/fish.nix
-    ./module/hypridle.nix
-    ./module/hyprland.nix
-    ./module/hyprlock.nix
-    ./module/hyprpaper.nix
-    ./module/waybar.nix
-    ./module/wofi.nix
-    ./module/bundle-gui.nix
+  home.stateVersion = "25.05";
+  nixpkgs.config.allowUnfree = true;
+
+  home.packages = packages.cli ++ packages.dev;
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    CC = "${pkgs.clang}/bin/clang";
+    CXX = "${pkgs.clang}/bin/clang++";
+  };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+    "$HOME/.local/scripts"
+    "$HOME/go/bin"
   ];
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  home.file = {
+    ".local/scripts" = {
+      source = ./scripts;
+      recursive = true;
+    };
+    ".local/bin/gcc" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+        exec ${pkgs.clang}/bin/clang "$@"
+      '';
+    };
+    ".local/bin/g++" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+        exec ${pkgs.clang}/bin/clang++ "$@"
+      '';
+    };
+  };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
   xdg = {
     enable = true;
     configFile = {
-      # Neovim configuration
       "nvim" = {
         source = ./nvim;
         recursive = true;
@@ -45,196 +59,45 @@ in
         source = ./tmux;
         recursive = true;
       };
-      # For `nix-env`, `nix-build`, `nix-shell` or any other Nix command
-      "nixpkgs/config.nix".text = ''
-        {
-          allowUnfree = true;
-        }
-      '';
-      "gtk-4.0/settings.ini".text = ''
-        [Settings]
-        gtk-theme-name=Gruvbox-Dark
-        gtk-icon-theme-name=Gruvbox-Plus-Dark
-      '';
-    };
-    mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-        "x-scheme-handler/terminal" = [ "ghostty.desktop" ];
-      };
-    };
-  };
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-
-  # Configure GTK settings through Home Manager
-  gtk = {
-    enable = true;
-
-    theme = {
-      name = "Gruvbox-Dark";
-      package = pkgs.gruvbox-gtk-theme;
-    };
-
-    iconTheme = {
-      name = "Gruvbox-Plus-Dark";
-      package = pkgs.gruvbox-dark-icons-gtk;
-    };
-
-    cursorTheme = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors;
-      size = 16;
-    };
-
-    font = {
-      name = "Inter";
-      size = 11;
-    };
-
-    gtk2.extraConfig = ''
-      gtk-application-prefer-dark-theme=1
-    '';
-
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-      gtk-button-images = 1;
-      gtk-menu-images = 1;
-    };
-  };
-
-  # Additional dconf settings for consistent theming
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      gtk-theme = "Gruvbox-Dark";
-      icon-theme = "Gruvbox-Plus-Dark";
-      color-scheme = "prefer-dark";
-    };
-  };
-
-  # Qt configuration
-  qt = {
-    enable = true;
-    platformTheme.name = "qtct"; # Use qt5ct/qt6ct for theming
-    style.name = "adwaita-dark"; # Fallback Qt style
-  };
-
-  home = {
-    packages = myPackages.homePackages;
-    # Environment variables for Qt theming
-    sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "qt5ct";
-      QT_STYLE_OVERRIDE = "adwaita-dark";
-      EDITOR = "nvim";
-      # hint Electron apps to use Wayland:
-      NIXOS_OZONE_WL = "1";
-      TERMINAL = "ghostty";
-      CC = "${pkgs.clang}/bin/clang";
-      CXX = "${pkgs.clang}/bin/clang++";
-    };
-
-    sessionPath = [
-      "$HOME/.local/bin"
-      "$HOME/.local/scripts"
-      "$HOME/go/bin"
-    ];
-
-    file = {
-      # Randomize wallpaper
-      ".local/scripts/set-random-wallpaper.sh" = {
-        text = ''
-          #!/usr/bin/env bash
-
-          WALLPAPER_DIR="$HOME/Sync/Wallpapers_clean/"
-          CURRENT_WALL=$(hyprctl hyprpaper listloaded)
-          # Get the name of the focused monitor with hyprctl
-          FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
-          # Get a random wallpaper that is not the current one
-          WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
-
-          # Apply the selected wallpaper
-          hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"'';
-        executable = true;
-      };
-      # Toggle pip opacity
-      ".local/scripts/toggle-pip-opacity.sh" = {
-        text = ''
-          #!/usr/bin/env bash
-          # Find the PIP window address
-          PIP_WINDOW=$(hyprctl clients -j | jq -r '.[] | select(.title=="Picture in picture") | .address')
-          hyprctl dispatch setprop address:$PIP_WINDOW opaque toggle > /dev/null'';
-        executable = true;
-      };
-      # Long scripts
-      ".local/scripts" = {
-        source = ./scripts;
+      "fish" = {
+        source = ./fish;
         recursive = true;
       };
-      ".local/bin/gcc" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-          exec ${pkgs.clang}/bin/clang "$@"
-        '';
+      "starship.toml" = {
+        source = ./starship.toml;
       };
-
-      ".local/bin/g++" = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-          exec ${pkgs.clang}/bin/clang++ "$@"
-        '';
+      "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
+    };
+    dataFile = {
+      "zsh/plugins/zsh-syntax-highlighting" = {
+        source = zsh-syntax-highlighting;
+        recursive = true;
       };
     };
   };
 
-  systemd = {
-    user = {
-      services.set-random-wallpaper = {
-        Unit = {
-          Description = "Set a random wallpaper";
-        };
-        Service = {
-          ExecStart = "${config.home.homeDirectory}/.local/scripts/set-random-wallpaper.sh";
-          Type = "oneshot";
-        };
-      };
-      timers.set-random-wallpaper = {
-        Unit = {
-          Description = "Change wallpaper every 10 minutes";
-        };
-        Timer = {
-          OnBootSec = "1min";
-          OnUnitActiveSec = "10min";
-          Persistent = true;
-        };
-        Install = {
-          WantedBy = [ "default.target" ];
-        };
-      };
-    };
-  };
-
-  services.syncthing.enable = true;
-
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.fish.enable = true;
+  programs.zsh = {
+    enable = true;
+    dotDir = "${config.xdg.configHome}/zsh";
+    initContent = builtins.readFile ./zsh/.zshrc;
+  };
+
+  programs.starship = {
+    enable = true;
+  };
 
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
-  };
-
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.eza = {
     enable = true;
     enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.git = {
@@ -258,19 +121,17 @@ in
   programs.btop = {
     enable = true;
     settings = {
-      color_theme = "gruvbox_dark_v2";
       theme_background = false;
       vim_keys = true;
     };
   };
 
-  programs.bat = {
-    enable = true;
-  };
+  programs.bat.enable = true;
 
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.neovim = {

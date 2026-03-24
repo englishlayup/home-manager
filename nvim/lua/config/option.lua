@@ -54,6 +54,9 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Return to last edit position when opening files
 vim.cmd [[autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]]
 
+-- Treat Jenkinsfile as Groovy
+vim.filetype.add { pattern = { ['Jenkinsfile.*'] = 'groovy' } }
+
 vim.keymap.set('n', '-', '<cmd>Oil<CR>', { desc = 'Open parent directory' })
 
 -- Remap for dealing with word wrap
@@ -92,22 +95,6 @@ vim.keymap.set('n', '<C-w>>', '<cmd>vertical resize +5<CR>',
   { desc = 'Increase current window width by 5' })
 vim.keymap.set('n', '<C-w><', '<cmd>vertical resize -5<CR>',
   { desc = 'Decrease current window width by 5' })
-
--- Start terminal in insert mode and disable line numbers
-vim.cmd [[autocmd TermOpen * startinsert | setlocal nonumber norelativenumber]]
-
-vim.api.nvim_create_user_command('PythonRepl', function()
-  vim.cmd.term 'python3'
-end, {
-  desc = 'Launch a Python repl',
-})
-
-vim.keymap.set('n', '<leader>py', '<cmd>PythonRepl<CR>', { desc = 'Start [Py]thon REPL' })
-
-vim.keymap.set('n', '<leader>t', function()
-    vim.cmd.term()
-  end,
-  { desc = 'Start [T]erminal' })
 
 vim.keymap.set('n', 'yd', function()
     -- get 0-based current line
@@ -149,9 +136,17 @@ local qf_shell_cmd = function(cmd)
   vim.cmd 'copen'
 end
 
-vim.api.nvim_create_user_command('QfShell', function()
+vim.api.nvim_create_user_command('ShellCmdToQf', function()
   local cmd = vim.fn.input 'Command: '
   qf_shell_cmd(cmd)
 end, {})
 
 vim.keymap.set('n', '<leader>c', '1z=e', { desc = '[C]orrect Spelling' })
+
+vim.keymap.set('n', '<leader>vt', function()
+  local buf = vim.api.nvim_get_current_buf()
+  vim.cmd 'tabclose'
+  vim.cmd 'tabfirst'
+  vim.cmd 'vsplit'
+  vim.api.nvim_set_current_buf(buf)
+end, { desc = 'View buffer in vertical split in tab 1' })

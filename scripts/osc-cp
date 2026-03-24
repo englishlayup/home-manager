@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Copy stdin to clipboard via OSC 52 escape sequence
+
+# Check for terminals known to support OSC 52
+supported=no
+[[ -n "$WT_SESSION" ]] && supported=yes           # Windows Terminal
+[[ -n "$GHOSTTY_BIN_DIR" ]] && supported=yes      # Ghostty
+[[ -n "$KITTY_WINDOW_ID" ]] && supported=yes      # Kitty
+[[ -n "$ITERM_SESSION_ID" ]] && supported=yes     # iTerm2
+[[ "$TERM" == alacritty ]] && supported=yes       # Alacritty
+[[ "$TERM" == foot ]] && supported=yes            # Foot
+[[ "$TERM_PROGRAM" == WezTerm ]] && supported=yes # WezTerm
+[[ -n "$TMUX" ]] && supported=yes                 # tmux (needs set-clipboard on)
+
+if [[ "$supported" == no ]]; then
+    echo "osc-copy: terminal may not support OSC 52 ($TERM)" >&2
+fi
+
+echo -ne "\033]52;c;$(base64 -w 0)\a"

@@ -1,50 +1,54 @@
 {
-  description = "Home Manager configuration of englishlayup";
+  description = "Home Manager configuration";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      ...
-    }:
-    {
-      homeConfigurations = {
-        "englishlayup@framework-13" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    { nixpkgs, home-manager, ... }:
+    let
+      mkHome =
+        {
+          system ? "x86_64-linux",
+          username,
+          hostFile,
+        }:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
           modules = [
             {
-              wayland.windowManager.hyprland = {
-                enable = true;
-                package = null;
-                portalPackage = null;
-              };
+              home.username = username;
+              home.homeDirectory = "/home/${username}";
             }
-            {
-              home.username = "englishlayup";
-              home.homeDirectory = "/home/englishlayup";
-            }
-            ./home.nix
+            hostFile
           ];
         };
-        "ductran" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            {
-              home.username = "ductran";
-              home.homeDirectory = "/home/ductran";
-            }
-            ./home.nix
-          ];
+    in
+    {
+      homeConfigurations = {
+        "englishlayup@framework-13" = mkHome {
+          username = "englishlayup";
+          hostFile = ./hosts/framework-13.nix;
+        };
+
+        "englishlayup@home-server" = mkHome {
+          username = "englishlayup";
+          hostFile = ./hosts/home-server.nix;
+        };
+
+        "englishlayup@DESKTOP-EV2FO3F" = mkHome {
+          username = "englishlayup";
+          hostFile = ./hosts/wsl.nix;
+        };
+
+        "ductran" = mkHome {
+          username = "ductran";
+          hostFile = ./hosts/wsl.nix;
         };
       };
     };
