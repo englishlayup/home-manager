@@ -42,7 +42,7 @@ vim.o.mouse = ''
 
 if vim.fn.has 'win32' == 1 then
   vim.o.shell = vim.fn.executable 'pwsh' == 1 and 'pwsh' or 'powershell'
-  vim.o.shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command'
+  vim.o.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command'
   vim.o.shellquote = ''
   vim.o.shellxquote = ''
 end
