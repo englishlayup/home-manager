@@ -63,9 +63,6 @@ in
         source = ./fish;
         recursive = true;
       };
-      "starship.toml" = {
-        source = ./starship.toml;
-      };
       "nixpkgs/config.nix".text = "{ allowUnfree = true; }";
     };
     dataFile = {
@@ -82,10 +79,6 @@ in
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
     initContent = builtins.readFile ./zsh/.zshrc;
-  };
-
-  programs.starship = {
-    enable = true;
   };
 
   programs.zoxide = {
