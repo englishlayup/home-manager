@@ -29,6 +29,8 @@ export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-
 zmodload zsh/complist
 autoload -U compinit && compinit
 autoload -U colors && colors
+autoload -Uz vcs_info
+autoload -Uz add-zsh-hook
 
 # cmp opts
 zstyle ':completion:*' menu select # tab opens cmp menu
@@ -72,8 +74,8 @@ bindkey "^K" history-search-backward
 bindkey '^R' fzf-history-widget
 
 # Terminal Integration
-preexec() { print -Pn "\e]0;$1\a" }
-precmd() {
+send_osc_preexec() { print -Pn "\e]0;$1\a" }
+send_osc_precmd() {
   local exit_code=$?
 
   # OSC 133 - shell integration
@@ -87,9 +89,28 @@ precmd() {
   print -Pn "\e]0;zsh\a"
 }
 
+add-zsh-hook preexec send_osc_preexec
+add-zsh-hook precmd send_osc_precmd
+
 # set up prompt
 NEWLINE=$'\n'
-eval "$(starship init zsh)"
+
+# Check for staged/unstaged changes
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' unstagedstr '%F{#fb4934}*%f'
+zstyle ':vcs_info:git:*' formats ' %F{#fabd2f}(%b%u)%f'
+
+# 3. Use the hook instead of overwriting precmd
+add-zsh-hook precmd vcs_info
+
+# 4. Enable variable expansion in the prompt
+setopt PROMPT_SUBST
+
+# 5. Define the Prompt
+# %~           = Current directory in Gruvbox Aqua (#8ec07c)
+# vcs_info...  = The Git branch in Gruvbox Yellow (#fabd2f)
+# ❯            = The prompt symbol in Gruvbox Green (#b8bb26)
+PROMPT='%(?..%F{#fb4934}%?%f )%F{#8ec07c}%~%f${vcs_info_msg_0_}${NEWLINE}%F{#b8bb26}❯%f '
 echo -e "${NEWLINE}\x1b[38;5;137m\x1b[48;5;0m it's $(print -P '%D{%_I:%M%P}\n') \x1b[38;5;180m\x1b[48;5;0m $(uptime) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # current
 
 # syntax highlighting
