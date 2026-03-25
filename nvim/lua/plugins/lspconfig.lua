@@ -13,18 +13,7 @@ return {
         lua_ls = {},
         clangd = {},
         gopls = {},
-        pyright = {
-          settings = {
-            pyright = {
-              disableOrganizeImports = true,
-            },
-            python = {
-              analysis = {
-                typeCheckingMode = 'strict',
-              },
-            },
-          },
-        },
+        ty = {},
         ruff = {},
         bashls = {},
         starpls = {},

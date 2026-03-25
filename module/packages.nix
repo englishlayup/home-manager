@@ -41,7 +41,7 @@ with pkgs;
     lua-language-server
     clang-tools
     gopls
-    pyright
+    ty
     ruff
     bash-language-server
     buildifier
