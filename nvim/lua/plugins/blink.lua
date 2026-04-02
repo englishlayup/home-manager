@@ -13,6 +13,7 @@ return {
       },
       signature = { enabled = true },
       sources = {
+        default = { 'lsp', 'path', 'relative_path', 'snippets', 'buffer' },
         per_filetype = {
           sql = { inherit_defaults = true, 'dadbod' },
           lua = { inherit_defaults = true, 'lazydev' },
@@ -25,6 +26,16 @@ return {
             score_offset = 100,
           },
           path = {
+            opts = {
+              get_cwd = function(_)
+                return vim.fn.getcwd()
+              end,
+            },
+          },
+          relative_path = {
+            name = 'relative_path',
+            module = 'blink.sources.relative-path',
+            score_offset = 4,
             opts = {
               get_cwd = function(_)
                 return vim.fn.getcwd()
