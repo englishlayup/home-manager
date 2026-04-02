@@ -41,7 +41,7 @@ return {
     opts = {},
     dependencies = {
       {
-        'echasnovski/mini.icons',
+        'nvim-mini/mini.icons',
         opts = {}
       }
     },
@@ -58,15 +58,4 @@ return {
   {
     'tpope/vim-repeat',
   },
-  {
-    'mbbill/undotree'
-  },
-  {
-    'HakonHarnes/img-clip.nvim',
-    event = 'VeryLazy',
-    opts = {},
-    keys = {
-      { '<leader>i', '<cmd>PasteImage<cr>', desc = '[I]nsert image from system clipboard' },
-    },
-  }
 }

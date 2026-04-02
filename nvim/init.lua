@@ -1,4 +1,5 @@
 require 'config.option'
 require 'config.terminal'
 require 'config.lazy'
+require 'config.plugins'
 require 'config.lsp'

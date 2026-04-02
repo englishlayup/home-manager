@@ -32,7 +32,6 @@ return {
           end
         },
       }
-      require 'mini.pairs'.setup()
       require 'mini.diff'.setup
       {
         view = {
