@@ -156,4 +156,4 @@ vim.keymap.set('n', '<leader>vt', function()
   vim.cmd 'tabfirst'
   vim.cmd 'vsplit'
   vim.api.nvim_set_current_buf(buf)
-end, { desc = 'View buffer in vertical split in tab 1' })
+end, { desc = 'Move buffer to vertical split in tab 1' })
