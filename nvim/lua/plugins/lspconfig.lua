@@ -21,7 +21,6 @@ return {
         starpls = {},
         nil_ls = {},
         templ = { _watch_files = true },
-        htmx = {},
         html = {
           filetypes = { 'html' },
         },

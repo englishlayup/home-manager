@@ -34,6 +34,7 @@ with pkgs;
     usbutils
     lazygit
     zsh
+    moreutils
   ];
 
   dev = [
@@ -49,7 +50,6 @@ with pkgs;
     nixfmt
     starpls
     nil
-    htmx-lsp
     vscode-langservers-extracted
     templ
     tailwindcss-language-server
