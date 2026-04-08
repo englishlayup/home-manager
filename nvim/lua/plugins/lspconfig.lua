@@ -11,8 +11,8 @@ return {
     opts = {
       servers = {
         lua_ls = {},
-        clangd = {},
-        gopls = {},
+        clangd = { _watch_files = true },
+        gopls = { _watch_files = true },
         ty = {},
         ruff = {},
         bashls = {
@@ -20,7 +20,7 @@ return {
         },
         starpls = {},
         nil_ls = {},
-        templ = {},
+        templ = { _watch_files = true },
         htmx = {},
         html = {
           filetypes = { 'html' },
@@ -40,16 +40,19 @@ return {
     config = function(_, opts)
       for server, config in pairs(opts.servers) do
         config.capabilities = require 'blink.cmp'.get_lsp_capabilities(config.capabilities)
-        -- Enable file watching on Linux so LSP picks up changes from external
-        -- tools (sqlc, templ, etc.) without needing :LspRestart.
-        -- Disabled by default on Linux due to scaling concerns with large dirs.
-        config.capabilities = vim.tbl_deep_extend('force', config.capabilities, {
-          workspace = {
-            didChangeWatchedFiles = {
-              dynamicRegistration = true,
+        -- Enable file watching for servers that use external code generators
+        -- (sqlc, templ, protoc, etc.). Disabled by default on Linux due to
+        -- inotify scaling concerns with large directories.
+        if config._watch_files then
+          config._watch_files = nil
+          config.capabilities = vim.tbl_deep_extend('force', config.capabilities, {
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = true,
+              },
             },
-          },
-        })
+          })
+        end
         vim.lsp.config(server, config)
         vim.lsp.enable { server }
       end
