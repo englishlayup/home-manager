@@ -54,6 +54,7 @@ with pkgs;
     templ
     tailwindcss-language-server
     tailwindcss_4
+    inotify-tools
     tree-sitter
     cmake-language-server
     cmake-format
