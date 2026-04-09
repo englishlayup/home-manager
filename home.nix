@@ -107,6 +107,8 @@ in
       branch.sort = "-committerdate";
       column.ui = "auto";
       alias.fpush = "push --force-with-lease";
+      alias.st = "status -sb";
+      alias.lg = "log --oneline --graph --decorate";
     };
     lfs.enable = true;
   };
