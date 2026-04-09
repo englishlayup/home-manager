@@ -74,7 +74,7 @@ bindkey "^K" history-search-backward
 bindkey '^R' fzf-history-widget
 
 # Terminal Integration
-send_osc_preexec() { print -Pn "\e]0;$1\a" }
+send_osc_preexec() { print -Pn "\e]0;$1\a"; }
 send_osc_precmd() {
   local exit_code=$?
 
