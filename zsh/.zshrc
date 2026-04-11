@@ -18,7 +18,7 @@ export PATH="$HOME/.local/scripts:$PATH"
 
 export DATE=$(date "+%A, %B %e  %_I:%M%P")
 
-export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='([ -d {} ] && ls -la {}) bat -p --color=always {}'"
+export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='([ -d {} ] && ls -la {}) || bat -p --color=always {}'"
 export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
 
 # source global shell alias & variables files
@@ -64,6 +64,8 @@ HISTCONTROL=ignoreboth # consecutive duplicates & commands starting with space a
 source <(fzf --zsh) # allow for fzf history widget
 
 # binds
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
 fzf-bindkey-widget() { bindkey | fzf --preview="man zshzle | col -b | grep -A5 \$(echo {} | awk '{print \$NF}')"; zle reset-prompt; }
 zle -N fzf-bindkey-widget
 bindkey "\e/" fzf-bindkey-widget # search zsh keybinds with alt+/
