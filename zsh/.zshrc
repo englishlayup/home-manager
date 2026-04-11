@@ -102,7 +102,7 @@ zstyle ':vcs_info:git:*' actionformats ' (%%B%F{magenta}%b%f%%b|%F{red}%a%f%c%u)
 add-zsh-hook precmd vcs_info
 
 # Vi mode indicator (EDITOR=nvim causes zsh to use vi keymap)
-VI_MODE_INDICATOR=""
+VI_MODE_INDICATOR="%F{green}[I]%f "
 zle-keymap-select() { # called when vi mode changes
   case $KEYMAP in
     vicmd)      VI_MODE_INDICATOR="%F{red}[N]%f ";    print -n "\e[2 q" ;; # normal mode, block cursor
