@@ -25,9 +25,8 @@ end
 function source:get_completions(context, callback)
   local line = context.line:sub(1, context.cursor[2])
 
-  -- Match word/ pattern at the end of line (without ./ or / prefix)
-  -- Pattern: word boundary, then word chars, then /
-  local prefix = line:match('([%w_%-%.]+/)$')
+  -- Match multi-segment relative path (e.g. dir/, dir/sub/, dir/sub/deep/)
+  local prefix = line:match('([%w_%-%.]+/[%w_%-%./-]*)$')
   if not prefix then
     callback({ items = {}, is_incomplete_forward = false, is_incomplete_backward = false })
     return function() end
@@ -41,8 +40,13 @@ function source:get_completions(context, callback)
     return function() end
   end
 
-  -- Get the directory path (everything before the last /)
-  local dir_path = prefix:sub(1, -2) -- Remove trailing /
+  -- Get the directory path (everything up to and including the last /)
+  local dir_path = prefix:match('(.*/)')
+  if not dir_path then
+    callback({ items = {}, is_incomplete_forward = false, is_incomplete_backward = false })
+    return function() end
+  end
+  dir_path = dir_path:sub(1, -2) -- Remove trailing /
 
   local cwd = self.opts.get_cwd(context)
   local full_path = cwd .. '/' .. dir_path

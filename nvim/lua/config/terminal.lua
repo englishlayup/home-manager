@@ -15,16 +15,6 @@ vim.keymap.set('n', '<leader>py', function()
   })
 end, { desc = 'Start [Py]thon REPL' })
 
-vim.keymap.set('n', '<leader>gg', function()
-  vim.cmd 'tabnew | terminal lazygit'
-  vim.api.nvim_create_autocmd('TermClose', {
-    buffer = 0,
-    once = true,
-    callback = function() vim.cmd 'tabc' end,
-  })
-end, { desc = 'Open Lazy[G]it in new tab' })
-
-
 vim.keymap.set('n', '<leader>t', function()
   vim.cmd 'tabnew | term'
 end, { desc = '[T]erminal: create new Terminal tab' })
