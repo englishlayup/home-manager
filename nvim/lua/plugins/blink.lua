@@ -62,7 +62,7 @@ return {
               local out = {}
               for _, item in ipairs(items) do
                 local raw = item.insertText
-                if raw:match(correct) then
+                if raw ~= nil and raw:match(correct) then
                   local text = case(raw:sub(1, 1)) .. raw:sub(2)
                   item.insertText = text
                   item.label = text

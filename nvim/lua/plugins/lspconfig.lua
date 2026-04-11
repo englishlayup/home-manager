@@ -15,9 +15,7 @@ return {
         gopls = { _watch_files = true },
         ty = {},
         ruff = {},
-        bashls = {
-            filetypes = { 'zsh' },
-        },
+        bashls = {},
         starpls = {},
         nil_ls = {},
         templ = { _watch_files = true },
