@@ -15,7 +15,7 @@ return {
       require 'dapui'.setup()
       require 'dap-go'.setup()
       require 'dap-python'.setup 'uv'
-      require 'nvim-dap-virtual-text'.setup()
+      require 'nvim-dap-virtual-text'.setup {}
 
       -- C/C++ debugger (lldb)
       dap.adapters.lldb = {
