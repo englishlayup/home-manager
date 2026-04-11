@@ -18,7 +18,7 @@ export PATH="$HOME/.local/scripts:$PATH"
 
 export DATE=$(date "+%A, %B %e  %_I:%M%P")
 
-export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='([ -d {} ] && ls -la {}) || bat -p --color=always {}'"
+export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='([ -d {} ] && ls -lA {}) || bat -p --color=always {}'"
 export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
 
 # source global shell alias & variables files
@@ -66,10 +66,16 @@ source <(fzf --zsh) # allow for fzf history widget
 # binds
 bindkey "^a" beginning-of-line
 bindkey "^e" end-of-line
+bindkey -v '^?' backward-delete-char
 fzf-bindkey-widget() { bindkey | fzf --preview="man zshzle | col -b | grep -A5 \$(echo {} | awk '{print \$NF}')"; zle reset-prompt; }
 zle -N fzf-bindkey-widget
 bindkey "\e/" fzf-bindkey-widget # search zsh keybinds with alt+/
 bindkey "\ee" edit-command-line  # open command line in $EDITOR with alt+e
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
 
 # Terminal Integration
 send_osc_preexec() { print -Pn "\e]0;$1\a"; }
