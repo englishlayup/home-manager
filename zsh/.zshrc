@@ -18,7 +18,7 @@ export PATH="$HOME/.local/scripts:$PATH"
 
 export DATE=$(date "+%A, %B %e  %_I:%M%P")
 
-export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='bat -p --color=always {}'"
+export FZF_DEFAULT_OPTS="--style minimal --color 16 --layout=reverse --height 30% --preview='([ -d {} ] && ls -la {}) bat -p --color=always {}'"
 export FZF_CTRL_R_OPTS="--style minimal --color 16 --info inline --no-sort --no-preview" # separate opts for history widget
 
 # source global shell alias & variables files
@@ -31,6 +31,8 @@ autoload -U compinit && compinit
 autoload -U colors && colors
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
+autoload -Uz edit-command-line
+zle -N edit-command-line
 
 # cmp opts
 zstyle ':completion:*' menu select # tab opens cmp menu
@@ -62,16 +64,10 @@ HISTCONTROL=ignoreboth # consecutive duplicates & commands starting with space a
 source <(fzf --zsh) # allow for fzf history widget
 
 # binds
-bindkey "^a" beginning-of-line
-bindkey "^e" end-of-line
-bindkey "^k" kill-line
-bindkey "^j" backward-word
-bindkey "^k" forward-word
-bindkey "^H" backward-kill-word
-# ctrl J & K for going up and down in prev commands
-bindkey "^J" history-search-forward
-bindkey "^K" history-search-backward
-bindkey '^R' fzf-history-widget
+fzf-bindkey-widget() { bindkey | fzf --preview="man zshzle | col -b | grep -A5 \$(echo {} | awk '{print \$NF}')"; zle reset-prompt; }
+zle -N fzf-bindkey-widget
+bindkey "\e/" fzf-bindkey-widget # search zsh keybinds with alt+/
+bindkey "\ee" edit-command-line  # open command line in $EDITOR with alt+e
 
 # Terminal Integration
 send_osc_preexec() { print -Pn "\e]0;$1\a"; }
@@ -103,6 +99,21 @@ zstyle ':vcs_info:git:*' actionformats ' (%%B%F{magenta}%b%f%%b|%F{red}%a%f%c%u)
 
 add-zsh-hook precmd vcs_info
 
+# Vi mode indicator (EDITOR=nvim causes zsh to use vi keymap)
+VI_MODE_INDICATOR=""
+zle-keymap-select() { # called when vi mode changes
+  case $KEYMAP in
+    vicmd)      VI_MODE_INDICATOR="%F{red}[N]%f ";    print -n "\e[2 q" ;; # normal mode, block cursor
+    visual)     VI_MODE_INDICATOR="%F{yellow}[V]%f ";  print -n "\e[2 q" ;; # visual mode, block cursor
+    viopp)      VI_MODE_INDICATOR="%F{cyan}[O]%f ";    print -n "\e[2 q" ;; # operator pending (after d/c/y), block cursor
+    viins|main) VI_MODE_INDICATOR="%F{green}[I]%f ";   print -n "\e[6 q" ;; # insert mode, beam cursor
+  esac
+  zle reset-prompt # redraw prompt to update indicator
+}
+zle-line-init() { VI_MODE_INDICATOR="%F{green}[I]%f "; print -n "\e[6 q"; } # reset to insert mode on new prompt
+zle -N zle-keymap-select # register as zle widget
+zle -N zle-line-init     # register as zle widget
+
 # Prompt helper functions
 prompt_ssh() {
   [[ -n "$SSH_CLIENT" ]] && print -n "%F{cyan}%m%f "
@@ -124,6 +135,7 @@ PROMPT+='%F{#8ec07c}%~%f'                          # Current directory
 PROMPT+='${vcs_info_msg_0_} '                      # Git info
 PROMPT+='$(prompt_jobs)'                           # Background jobs count
 PROMPT+=$'\n'                                      # Newline
+PROMPT+='${VI_MODE_INDICATOR}'                     # vi mode: [N] in normal, hidden in insert
 PROMPT+='%(!.#.$) '                                # $ or # suffix
 echo -e "\n\x1b[38;5;137m\x1b[48;5;0m it's $(print -P '%D{%_I:%M%P}\n') \x1b[38;5;180m\x1b[48;5;0m $(uptime) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # current
 
