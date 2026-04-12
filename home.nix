@@ -19,6 +19,7 @@ in
     EDITOR = "nvim";
     CC = "${pkgs.clang}/bin/clang";
     CXX = "${pkgs.clang}/bin/clang++";
+    LD_LIBRARY_PATH = "${pkgs.sqlite.out}/lib";
   };
 
   home.sessionPath = [
