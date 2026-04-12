@@ -15,7 +15,8 @@ return {
         enabled = false,
       }
     },
-    lazygit = {}
+    lazygit = {},
+    image = {},
   },
   keys = {
     { '<leader>sf', function() Snacks.picker.smart() end,                   desc = 'Smart [S]earch [F]iles' },
