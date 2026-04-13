@@ -7,7 +7,11 @@ vim.cmd [[autocmd TermOpen * startinsert | setlocal nonumber norelativenumber]]
 vim.keymap.set('t', '<C-w>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 vim.keymap.set('n', '<leader>py', function()
-  vim.cmd 'tabnew | terminal python'
+  if vim.fn.executable 'uv' == 1 then
+    vim.cmd 'tabnew | terminal uv run python'
+  else
+    vim.cmd 'tabnew | terminal python'
+  end
   vim.api.nvim_create_autocmd('TermClose', {
     buffer = 0,
     once = true,
