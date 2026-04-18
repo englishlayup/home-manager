@@ -7,7 +7,7 @@ in
   imports = [ ../home.nix ];
 
   # Desktop + personal + productivity packages
-  home.packages = packages.desktop ++ packages.personal ++ packages.productivity;
+  home.packages = packages.desktop ++ packages.personal;
 
   # Desktop environment variables
   home.sessionVariables = {

@@ -76,18 +76,16 @@ with pkgs;
 
   desktop = [
     rustdesk-flutter
+    remmina
+    libreoffice-qt6-fresh
+    sioyek
+    xournalpp
+    gimp3
+    mpv
   ];
 
   personal = [
     anki-bin
     musescore
-    mpv
-  ];
-
-  productivity = [
-    libreoffice-qt6-fresh
-    sioyek
-    xournalpp
-    gimp3
   ];
 }
