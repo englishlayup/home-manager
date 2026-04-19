@@ -16,7 +16,11 @@ return {
       }
     },
     lazygit = {},
-    image = {},
+    image = {
+      doc = {
+        float = false,
+      },
+    },
   },
   keys = {
     { '<leader>sf', function() Snacks.picker.smart() end,                   desc = 'Smart [S]earch [F]iles' },
