@@ -4,7 +4,7 @@ return {
   branch = 'main',
   build = ':TSUpdate',
   config = function()
-    local ensure_installed = { 'templ', 'css', 'html', 'javascript', 'regex' }
+    local ensure_installed = { 'templ', 'css', 'html', 'javascript', 'regex', 'go' }
     require 'nvim-treesitter'.install(ensure_installed)
 
     vim.api.nvim_create_autocmd('FileType', {
