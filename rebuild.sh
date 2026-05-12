@@ -15,7 +15,7 @@ if ! home-manager switch -b backup &>nixos-switch.log; then
     exit 1
 fi
 
-current=$(home-manager generations | head -n 1 | awk '{ print $1,$2,$3,$4,$5 }')
+current=$(home-manager generations | awk 'NR==1 { print $1,$2,$3,$4,$5 }')
 git commit -am "$current"
 
 if command -v notify-send >/dev/null; then
