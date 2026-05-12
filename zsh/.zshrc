@@ -77,6 +77,151 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
+# Git worktree utils
+gwadd() {
+  local create_branch=false
+  local branch=""
+  local base=""
+
+  # Parse flags
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -b)
+        create_branch=true
+        branch="$2"
+        shift 2
+        ;;
+      -h|--help)
+        echo "Usage:"
+        echo "  gwadd <branch>            Check out existing branch in new worktree"
+        echo "  gwadd -b <branch> [base]  Create new branch (from base or HEAD) in new worktree"
+        return 0
+        ;;
+      *)
+        if [ -z "$branch" ]; then
+          branch="$1"
+        else
+          base="$1"
+        fi
+        shift
+        ;;
+    esac
+  done
+
+  if [ -z "$branch" ]; then
+    echo "Usage: gwadd <branch> | gwadd -b <branch> [base]"
+    return 1
+  fi
+
+  local repo_root
+  repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+    echo "Not in a git repository"
+    return 1
+  }
+
+  local parent repo_name path
+  parent=$(dirname "$repo_root")
+  repo_name=$(basename "$repo_root")
+  path="$parent/${repo_name}-${branch//\//-}"
+
+  if $create_branch; then
+    # Creating new branch — fail loudly if it already exists
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+      echo "Branch '$branch' already exists. Drop -b to check it out, or pick a new name."
+      return 1
+    fi
+    git worktree add "$path" -b "$branch" "${base:-HEAD}"
+  else
+    # Checking out existing branch — fail loudly if it doesn't exist
+    if ! git show-ref --verify --quiet "refs/heads/$branch"; then
+      # Also check if it exists as a remote branch — common case worth handling
+      if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+        echo "Branch '$branch' exists on origin but not locally."
+        echo "Run: gwadd -b $branch origin/$branch"
+      else
+        echo "Branch '$branch' does not exist. Use -b to create it."
+      fi
+      return 1
+    fi
+    git worktree add "$path" "$branch"
+  fi && cd "$path"
+}
+
+gwcd() {
+  local worktree
+  worktree=$(git worktree list | fzf --height 40% --reverse | awk '{print $1}')
+  [ -n "$worktree" ] && cd "$worktree"
+}
+
+gwrm() {
+  local worktree
+  worktree=$(git worktree list | fzf --height 40% --reverse --prompt="Remove worktree: " | awk '{print $1}')
+
+  if [ -z "$worktree" ]; then
+    return 0
+  fi
+
+  # Don't let yourself remove the main worktree
+  local main_wt
+  main_wt=$(git worktree list | head -1 | awk '{print $1}')
+  if [ "$worktree" = "$main_wt" ]; then
+    echo "Refusing to remove main worktree: $worktree"
+    return 1
+  fi
+
+  read -p "Remove $worktree? [y/N] " confirm
+  if [[ "$confirm" =~ ^[Yy]$ ]]; then
+    git worktree remove "$worktree"
+  fi
+}
+
+gwclean() {
+  local main_branch
+  main_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
+  main_branch="${main_branch:-main}"
+
+  git worktree list --porcelain | awk '/^worktree / {print $2}' | while read -r wt; do
+    # Skip the main worktree
+    [ "$wt" = "$(git rev-parse --show-toplevel)" ] && continue
+
+    local branch
+    branch=$(git -C "$wt" symbolic-ref --short HEAD 2>/dev/null) || continue
+
+    # If branch is merged into main, offer to remove
+    if git branch --merged "$main_branch" | grep -q "^[* ] $branch$"; then
+      read -p "Remove merged worktree $wt (branch: $branch)? [y/N] " confirm
+      if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        git worktree remove "$wt"
+        git branch -d "$branch"
+      fi
+    fi
+  done
+}
+
+gwinit() {
+  if [ -z "$1" ]; then
+    echo "Usage: gwinit <repo-url> [dir]"
+    return 1
+  fi
+
+  local url="$1"
+  local dir="${2:-$(basename "$url" .git)}"
+
+  mkdir -p "$dir" && cd "$dir" || return 1
+  git clone --bare "$url" .bare
+  echo "gitdir: ./.bare" > .git
+
+  # Fix fetch refspec so `git fetch` grabs all branches normally
+  git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+  git fetch origin
+
+  # Check out the default branch as the first worktree
+  local default
+  default=$(git symbolic-ref --short HEAD 2>/dev/null || echo "main")
+  git worktree add "$default" "$default"
+  cd "$default"
+}
+
 # Terminal Integration
 send_osc_preexec() { print -Pn "\e]0;$1\a"; }
 send_osc_precmd() {
