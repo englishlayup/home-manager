@@ -111,9 +111,6 @@ in
       alias.st = "status -sb";
       alias.lg = "log --oneline --graph --decorate";
     };
-    ignores = [
-      "worktrees"
-    ];
     lfs.enable = true;
   };
 
