@@ -292,6 +292,16 @@ PROMPT+='${VI_MODE_INDICATOR}'                     # vi mode: [N] in normal, hid
 PROMPT+='%(!.#.$) '                                # $ or # suffix
 echo -e "\n\x1b[38;5;137m\x1b[48;5;0m it's $(print -P '%D{%_I:%M%P}\n') \x1b[38;5;180m\x1b[48;5;0m $(uptime) \x1b[38;5;223m\x1b[48;5;0m $(uname -r) \033[0m" # current
 
+# fnm shell integration
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
+fi
+
+# uv autocompletion
+if command -v uv >/dev/null 2>&1; then
+  eval "$(uv generate-shell-completion zsh)"
+fi
+
 # syntax highlighting
 # requires zsh-syntax-highlighting package
 source $XDG_DATA_HOME/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
