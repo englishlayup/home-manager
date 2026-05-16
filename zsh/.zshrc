@@ -77,7 +77,7 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-# Git worktree utils
+# === Git worktree utils ===
 gwadd() {
   local create_branch=false
   local branch=""
@@ -119,10 +119,9 @@ gwadd() {
     return 1
   }
 
-  local parent repo_name path
+  local parent wt_path
   parent=$(dirname "$repo_root")
-  repo_name=$(basename "$repo_root")
-  path="$parent/${repo_name}-${branch//\//-}"
+  wt_path="$parent/${branch//\//-}"
 
   if $create_branch; then
     # Creating new branch — fail loudly if it already exists
@@ -130,7 +129,7 @@ gwadd() {
       echo "Branch '$branch' already exists. Drop -b to check it out, or pick a new name."
       return 1
     fi
-    git worktree add "$path" -b "$branch" "${base:-HEAD}"
+    git worktree add "$wt_path" -b "$branch" "${base:-HEAD}"
   else
     # Checking out existing branch — fail loudly if it doesn't exist
     if ! git show-ref --verify --quiet "refs/heads/$branch"; then
@@ -143,8 +142,8 @@ gwadd() {
       fi
       return 1
     fi
-    git worktree add "$path" "$branch"
-  fi && cd "$path"
+    git worktree add "$wt_path" "$branch"
+  fi && cd "$wt_path"
 }
 
 gwcd() {
@@ -169,7 +168,7 @@ gwrm() {
     return 1
   fi
 
-  read -p "Remove $worktree? [y/N] " confirm
+  read "confirm?Remove $worktree? [y/N] "
   if [[ "$confirm" =~ ^[Yy]$ ]]; then
     git worktree remove "$worktree"
   fi
@@ -189,7 +188,7 @@ gwclean() {
 
     # If branch is merged into main, offer to remove
     if git branch --merged "$main_branch" | grep -q "^[* ] $branch$"; then
-      read -p "Remove merged worktree $wt (branch: $branch)? [y/N] " confirm
+      read "confirm?Remove merged worktree $wt (branch: $branch)? [y/N] "
       if [[ "$confirm" =~ ^[Yy]$ ]]; then
         git worktree remove "$wt"
         git branch -d "$branch"
@@ -222,7 +221,8 @@ gwinit() {
   cd "$default"
 }
 
-# Terminal Integration
+# === Terminal Integration ===
+
 send_osc_preexec() { print -Pn "\e]0;$1\a"; }
 send_osc_precmd() {
   local exit_code=$?
