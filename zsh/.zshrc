@@ -148,13 +148,13 @@ gwadd() {
 
 gwcd() {
   local worktree
-  worktree=$(git worktree list | fzf --height 40% --reverse | awk '{print $1}')
+  worktree=${1:-$(git worktree list | fzf --height 40% --reverse | awk '{print $1}')}
   [ -n "$worktree" ] && cd "$worktree"
 }
 
 gwrm() {
   local worktree
-  worktree=$(git worktree list | fzf --height 40% --reverse --prompt="Remove worktree: " | awk '{print $1}')
+  worktree=${1:-$(git worktree list | fzf --height 40% --reverse --prompt="Remove worktree: " | awk '{print $1}')}
 
   if [ -z "$worktree" ]; then
     return 0
@@ -172,29 +172,6 @@ gwrm() {
   if [[ "$confirm" =~ ^[Yy]$ ]]; then
     git worktree remove "$worktree"
   fi
-}
-
-gwclean() {
-  local main_branch
-  main_branch=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
-  main_branch="${main_branch:-main}"
-
-  git worktree list --porcelain | awk '/^worktree / {print $2}' | while read -r wt; do
-    # Skip the main worktree
-    [ "$wt" = "$(git rev-parse --show-toplevel)" ] && continue
-
-    local branch
-    branch=$(git -C "$wt" symbolic-ref --short HEAD 2>/dev/null) || continue
-
-    # If branch is merged into main, offer to remove
-    if git branch --merged "$main_branch" | grep -q "^[* ] $branch$"; then
-      read "confirm?Remove merged worktree $wt (branch: $branch)? [y/N] "
-      if [[ "$confirm" =~ ^[Yy]$ ]]; then
-        git worktree remove "$wt"
-        git branch -d "$branch"
-      fi
-    fi
-  done
 }
 
 gwinit() {
@@ -222,7 +199,6 @@ gwinit() {
 }
 
 # === Terminal Integration ===
-
 send_osc_preexec() { print -Pn "\e]0;$1\a"; }
 send_osc_precmd() {
   local exit_code=$?
