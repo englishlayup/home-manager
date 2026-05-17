@@ -75,7 +75,7 @@ with pkgs;
   ];
 
   desktop = [
-    rustdesk-flutter
+    rustdesk
     remmina
     libreoffice-qt6-fresh
     sioyek
